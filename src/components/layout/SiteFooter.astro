@@ -1,0 +1,37 @@
+---
+import { site } from '@/lib/constants/site';
+import './SiteFooter.css';
+---
+
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div class="site-footer__top">
+      <p class="site-footer__tagline">Let&rsquo;s build something.</p>
+      <a href={`mailto:${site.email}`} class="site-footer__email">
+        {site.email}
+      </a>
+    </div>
+
+    <div class="site-footer__bottom">
+      <ul class="site-footer__socials" aria-label="Social links">
+        {
+          site.socials.map((s) => (
+            <li>
+              <a
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="site-footer__social-link"
+              >
+                {s.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="site-footer__copyright">
+        &copy; {new Date().getFullYear()} Marcelino Jorgi
+      </p>
+    </div>
+  </div>
+</footer>

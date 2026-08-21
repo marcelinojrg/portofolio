@@ -1,0 +1,57 @@
+/* Kinetic intro — full-viewport ink curtain. Visible ONLY under html.js +
+   full motion (see the inverted gate in styles/base.css); without JS or under
+   reduced motion it never renders, so content is never hidden behind a dead
+   overlay. lib/animations/intro.ts choreographs and removes it. */
+
+.site-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-inverse-bg);
+  color: var(--color-inverse-text);
+}
+
+.site-intro__title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 7vw, 5.5rem);
+  font-weight: 500;
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+  text-align: center;
+}
+
+.site-intro__mask {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+
+.site-intro__word {
+  display: block;
+  will-change: transform;
+}
+
+.site-intro__count {
+  position: absolute;
+  right: 2rem;
+  bottom: 1.5rem;
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  letter-spacing: 0.2em;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-inverse-muted);
+}
+
+.site-intro__bar {
+  position: absolute;
+  left: 2rem;
+  bottom: 1.75rem;
+  width: 8rem;
+  height: 1px;
+  background: var(--color-inverse-muted);
+  transform-origin: left;
+}

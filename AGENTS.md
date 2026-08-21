@@ -26,10 +26,10 @@ The website must feel intentional from the first viewport to the final contact s
 
 ## 3. Primary Stack
 
-- Astro
+- Astro 7
 - TypeScript
 - React for interaction-heavy islands only
-- Tailwind CSS
+- Plain CSS — semantic class names, one stylesheet per section component
 - GSAP
 - GSAP ScrollTrigger
 - npm
@@ -216,7 +216,7 @@ Keep visual tokens centralized.
 
 Avoid hardcoding the same spacing, color, radius, or typography values in many files.
 
-Use CSS variables or Tailwind theme tokens for global values where appropriate.
+Use CSS variables defined in `src/styles/base.css` for global values.
 
 Do not mix arbitrary one-off styles with the design system unless the exception is intentional and documented.
 

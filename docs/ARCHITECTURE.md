@@ -40,11 +40,13 @@ Do not build the entire website as a client-side React application.
 
 Primary styling system:
 
-**Tailwind CSS**
+**Plain CSS — semantic class names, one stylesheet per section component**
 
-Use Tailwind for composition while keeping global design tokens centralized.
+Section styles live beside their components (e.g. `src/components/home/Hero.css` next to `Hero.astro`).
 
-Global tokens should be represented through CSS variables or theme configuration where appropriate.
+Global design tokens, the minimal reset, and shared conventions (`.eyebrow`, `.prose-case`, motion anti-flash states) live in `src/styles/base.css`.
+
+Global values should be represented through CSS variables defined in `base.css`.
 
 ## 5. Animation
 

@@ -1,5 +1,6 @@
 import { gsap } from 'gsap';
 import { prefersReducedMotion } from './reduced-motion';
+import { onTeardown } from './teardown';
 
 /**
  * Seamless marquee bands (ANIMATION.md §21 ambient + §25 transform-only).
@@ -28,8 +29,12 @@ export function initMarquees() {
     band.addEventListener('mouseleave', () => tween.play());
   });
 
-  document.addEventListener('visibilitychange', () => {
+  const onVisibility = () => {
     const playing = document.visibilityState === 'visible';
     tweens.forEach((t) => (playing ? t.play() : t.pause()));
-  });
+  };
+  document.addEventListener('visibilitychange', onVisibility);
+  onTeardown(() =>
+    document.removeEventListener('visibilitychange', onVisibility),
+  );
 }

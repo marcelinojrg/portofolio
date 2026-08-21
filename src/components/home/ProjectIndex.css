@@ -1,0 +1,157 @@
+/* Kinetic project list — desktop rows are pure text; a fixed preview panel
+   follows the cursor and shows the cover (lib/animations/showcase.ts).
+   Mobile and reduced-motion visitors get the inline covers instead. */
+
+.project-index {
+  max-width: 72rem;
+  margin-inline: auto;
+  padding: var(--spacing-section) 1.5rem;
+}
+
+.project-index__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: 4rem;
+}
+
+.project-index__title {
+  margin-top: 1rem;
+  max-width: 42rem;
+  font-family: var(--font-display);
+  font-size: var(--text-section);
+  font-weight: 500;
+  letter-spacing: -0.025em;
+}
+
+.project-index__hint {
+  display: none;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: var(--color-text-muted);
+}
+
+.project-index__list {
+  border-top: 1px solid var(--color-border);
+}
+
+/* ---------- Rows ---------- */
+
+.project-row {
+  display: grid;
+  grid-template-columns: 3.5rem 1fr auto;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 2.25rem 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.project-row__num {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
+  transition: color 300ms ease;
+}
+
+.project-row__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3.5vw, 2.75rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  transition:
+    transform 500ms cubic-bezier(0.22, 1, 0.36, 1),
+    color 300ms ease;
+  will-change: transform;
+}
+
+.project-row__meta {
+  display: none;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+.project-row:hover .project-row__num {
+  color: var(--color-accent);
+}
+
+.project-row:hover .project-row__title {
+  transform: translateX(1.5rem);
+  color: var(--color-accent);
+}
+
+.project-row__cover {
+  display: none;
+}
+
+/* ---------- Cursor-following preview panel (desktop) ---------- */
+
+.showcase-preview {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 60;
+  width: min(26rem, 40vw);
+  aspect-ratio: 4 / 3;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 300ms ease;
+  will-change: transform;
+}
+
+.showcase-preview.is-active {
+  opacity: 1;
+}
+
+.showcase-preview__item {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: scale(0.94);
+  transition:
+    opacity 450ms ease,
+    transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.showcase-preview__item.is-active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ---------- Breakpoints & motion preferences ---------- */
+
+@media (min-width: 48rem) {
+  .project-index {
+    padding-inline: 2.5rem;
+  }
+
+  .project-index__head {
+    margin-bottom: 6rem;
+  }
+
+  .project-index__hint {
+    display: block;
+  }
+}
+
+@media (max-width: 767px) {
+  .project-row {
+    grid-template-columns: 3rem 1fr;
+  }
+
+  .project-row__cover {
+    display: block;
+    margin-top: 0.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-row__cover {
+    display: block;
+  }
+
+  .showcase-preview {
+    display: none;
+  }
+}

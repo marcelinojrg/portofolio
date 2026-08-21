@@ -1,0 +1,45 @@
+---
+interface NavItem {
+  label: string;
+  href: string;
+}
+
+interface Props {
+  nav: readonly NavItem[];
+  email: string;
+}
+
+const { nav, email } = Astro.props;
+---
+
+<!-- Behavior (toggle, Escape, focus, scroll lock) lives in lib/animations/ui.ts
+     via data attributes, so no per-page script duplication. Styles live in
+     SiteHeader.css — the menu is one visual unit with the header. -->
+<div class="mobile-menu">
+  <button
+    type="button"
+    class="menu-toggle"
+    aria-label="Open menu"
+    aria-expanded="false"
+    aria-controls="mobile-nav"
+    data-menu-toggle
+  >
+    <span class="menu-toggle__lines">
+      <span class="menu-line menu-line-top"></span>
+      <span class="menu-line menu-line-bottom"></span>
+    </span>
+  </button>
+
+  <div id="mobile-nav" class="menu-overlay" hidden data-menu-overlay>
+    <nav class="menu-overlay__nav" aria-label="Mobile">
+      {
+        nav.map((item) => (
+          <a href={item.href} class="menu-overlay__link">
+            {item.label}
+          </a>
+        ))
+      }
+      <a href={`mailto:${email}`} class="menu-overlay__cta"> Get in touch </a>
+    </nav>
+  </div>
+</div>

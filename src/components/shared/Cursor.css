@@ -1,0 +1,49 @@
+/* Custom cursor (desktop, full-motion only) — a dot + trailing ring.
+   The native cursor is hidden only while the custom cursor is active
+   (html.cursor-on); touch / reduced-motion visitors keep the normal one. */
+
+.cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 95;
+  pointer-events: none;
+  mix-blend-mode: difference;
+}
+
+html.cursor-on,
+html.cursor-on * {
+  cursor: none;
+}
+
+.cursor__dot {
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  border-radius: 9999px;
+  background: #fff;
+  opacity: 0;
+}
+
+.cursor__ring {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border-radius: 9999px;
+  border: 1.5px solid rgba(255, 255, 255, 0.9);
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (hover: none), (prefers-reduced-motion: reduce) {
+  html.cursor-on,
+  html.cursor-on * {
+    cursor: auto;
+  }
+
+  .cursor {
+    display: none;
+  }
+}

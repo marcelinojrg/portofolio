@@ -1,8 +1,15 @@
 ---
-import '../styles/globals.css';
+import '../styles/base.css';
+import '@fontsource/space-grotesk/400.css';
+import '@fontsource/space-grotesk/500.css';
+import '@fontsource/space-grotesk/700.css';
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/500.css';
+import '@fontsource/inter/600.css';
+import '@fontsource/inter/500-italic.css';
 import { ClientRouter } from 'astro:transitions';
-import Intro from '../components/common/Intro.astro';
-import Cursor from '../components/common/Cursor.astro';
+import Intro from '../components/home/Intro.astro';
+import Cursor from '../components/shared/Cursor.astro';
 
 interface Props {
   title: string;
@@ -49,11 +56,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     </script>
   </head>
   <body>
-    <a
-      href="#main"
-      class="focus:bg-surface sr-only focus:not-sr-only focus:absolute focus:z-50 focus:px-4 focus:py-2"
-      >Skip to content</a
-    >
+    <a href="#main" class="skip-link">Skip to content</a>
     <Cursor />
     <Intro />
     <slot />

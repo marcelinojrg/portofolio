@@ -1,39 +1,34 @@
 ---
 import { getCollection } from 'astro:content';
-import ProjectCover from './ProjectCover.astro';
+import ProjectCover from '../shared/ProjectCover.astro';
+import './ProjectIndex.css';
 
 const projects = (await getCollection('projects'))
   .filter((p) => p.data.featured)
   .sort((a, b) => a.data.order - b.data.order);
 ---
 
-<section
-  id="work"
-  class="mx-auto max-w-6xl px-6 py-[var(--spacing-section)] md:px-10"
->
-  <div class="mb-16 flex items-end justify-between gap-6 md:mb-24">
+<section id="work" class="project-index">
+  <div class="project-index__head">
     <div>
       <p class="eyebrow" data-reveal>Selected work</p>
-      <h2
-        class="font-display text-section mt-4 max-w-2xl font-medium tracking-[-0.025em]"
-        data-reveal
-      >
+      <h2 class="project-index__title" data-reveal>
         Selected projects, built to ship.
       </h2>
     </div>
-    <p class="text-text-muted hidden text-sm md:block" data-reveal>
+    <p class="project-index__hint" data-reveal>
       Hover a row - the preview follows.
     </p>
   </div>
 
-  <ul class="border-border border-t">
+  <ul class="project-index__list">
     {
       projects.map((p, i) => (
         <li data-reveal>
           <a
-            href={`/work/${p.slug}`}
-            class="project-row group"
-            data-showcase-row={p.slug}
+            href={`/work/${p.id}`}
+            class="project-row"
+            data-showcase-row={p.id}
           >
             <span class="project-row__num">
               {String(i + 1).padStart(2, '0')}
@@ -44,7 +39,7 @@ const projects = (await getCollection('projects'))
             </span>
           </a>
           <div class="project-row__cover" aria-hidden="true">
-            <ProjectCover project={p} index={i} uid={`row-${p.slug}`} />
+            <ProjectCover project={p} index={i} uid={`row-${p.id}`} />
           </div>
         </li>
       ))
@@ -56,10 +51,10 @@ const projects = (await getCollection('projects'))
       projects.map((p, i) => (
         <div
           class="showcase-preview__item"
-          data-preview-item={p.slug}
+          data-preview-item={p.id}
           aria-hidden="true"
         >
-          <ProjectCover project={p} index={i} uid={`pv-${p.slug}`} />
+          <ProjectCover project={p} index={i} uid={`pv-${p.id}`} />
         </div>
       ))
     }

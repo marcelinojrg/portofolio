@@ -1,0 +1,43 @@
+---
+import { site } from '@/lib/constants/site';
+import './ContactCTA.css';
+---
+
+<section id="contact" class="contact">
+  <span class="contact-watermark" aria-hidden="true" data-parallax="48"
+    >MJ.</span
+  >
+  <div class="contact__inner">
+    <p class="eyebrow contact__eyebrow" data-reveal>Contact</p>
+    <h2 class="contact__title" data-reveal>
+      Have a project
+      <span class="contact__title-line">in mind?</span>
+      <span class="contact__accent"> Let&rsquo;s build it. </span>
+    </h2>
+    <a
+      href={`mailto:${site.email}`}
+      class="contact__mail"
+      data-magnetic
+      data-reveal
+    >
+      <span class="contact-mail-underline">{site.email}</span>
+      <span class="contact-arrow" aria-hidden="true">&nearr;</span>
+    </a>
+    <ul class="contact__socials" aria-label="Social links" data-reveal>
+      {
+        site.socials.map((s) => (
+          <li>
+            <a
+              href={s.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="contact__social-link"
+            >
+              {s.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

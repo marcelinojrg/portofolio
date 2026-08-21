@@ -1,0 +1,214 @@
+/* Kinetic hero — monumental name, masked word reveal, scroll-linked exit.
+   GSAP choreography lives in lib/animations/hero.ts; the anti-flash initial
+   states for [data-hero] / [data-hero-word] live in styles/base.css. */
+
+.hero {
+  position: relative;
+  display: flex;
+  min-height: 100svh;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  padding-top: 6rem;
+  padding-bottom: 7rem;
+}
+
+.hero__inner {
+  width: 100%;
+  max-width: 72rem;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+
+.hero__meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.hero__rule {
+  height: 1px;
+  flex: 1 1 0%;
+  background: var(--color-border);
+}
+
+.hero__footer {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.hero__blurb {
+  max-width: 24rem;
+  font-size: 1rem;
+  line-height: 1.625;
+  color: var(--color-text-muted);
+}
+
+.hero__actions {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.hero__scroll-wrap {
+  display: none;
+}
+
+.hero__cta {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+  letter-spacing: 0.025em;
+  text-underline-offset: 4px;
+}
+
+.hero__cta:hover {
+  text-decoration: underline;
+}
+
+.hero__cta-arrow {
+  transition: transform 300ms ease;
+}
+
+.hero__cta:hover .hero__cta-arrow {
+  transform: translateX(0.25rem);
+}
+
+/* ---------- Hero typography ---------- */
+
+.hero-title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+}
+
+.hero-greeting {
+  display: block;
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-weight: 500;
+  color: var(--color-text-muted);
+  letter-spacing: -0.01em;
+}
+
+.hero-name {
+  display: block;
+  font-size: clamp(2.5rem, 6.5vw, 4.75rem);
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+}
+
+.hero-accent {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-weight: 600;
+  color: var(--color-accent);
+  letter-spacing: -0.01em;
+}
+
+.hero-rotate {
+  white-space: pre;
+}
+
+.hero-rotate .ch {
+  display: inline-block;
+  transition:
+    opacity 220ms ease,
+    transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform, opacity;
+}
+
+.hero-note {
+  margin-top: 1.75rem;
+  max-width: 34ch;
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--color-text-muted);
+}
+
+.hero-emoji {
+  display: inline-block;
+  font-family: var(--font-body);
+  opacity: 1;
+  transition:
+    opacity 420ms ease,
+    transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform, opacity;
+}
+
+/* Masked word reveal — GSAP animates the words, CSS owns the masks. */
+.hero-title__line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.32em;
+  margin-bottom: -0.32em;
+}
+
+.hero-title__word {
+  display: inline-block;
+  will-change: transform;
+}
+
+/* ---------- Scroll hint ---------- */
+
+.hero-scroll-hint {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--color-text-muted);
+}
+
+.hero-scroll-hint__line {
+  display: block;
+  width: 1px;
+  height: 3.5rem;
+  background: var(--color-text-muted);
+  transform-origin: top;
+}
+
+/* ---------- Bottom marquee band ---------- */
+
+.hero-marquee {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border-top: 1px solid var(--color-border);
+  padding: 1rem 0;
+}
+
+@media (min-width: 48rem) {
+  .hero {
+    padding-bottom: 8rem;
+  }
+
+  .hero__inner {
+    padding-inline: 2.5rem;
+  }
+
+  .hero__footer {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+
+  .hero__actions {
+    justify-content: flex-end;
+  }
+
+  .hero__scroll-wrap {
+    display: block;
+  }
+}

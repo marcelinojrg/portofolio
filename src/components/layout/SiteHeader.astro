@@ -1,0 +1,28 @@
+---
+import { site } from '@/lib/constants/site';
+import MobileMenu from './MobileMenu.astro';
+import './SiteHeader.css';
+---
+
+<header class="site-header" data-header>
+  <div class="site-header__inner">
+    <a href="/" class="site-header__logo" aria-label="Marcelino Jorgi - home">
+      MJ<span class="site-header__logo-dot">.</span>
+    </a>
+
+    <nav class="site-header__nav" aria-label="Primary">
+      {
+        site.nav.map((item) => (
+          <a href={item.href} class="site-header__link">
+            {item.label}
+          </a>
+        ))
+      }
+      <a href={`mailto:${site.email}`} class="site-header__cta">
+        Get in touch
+      </a>
+    </nav>
+
+    <MobileMenu nav={site.nav} email={site.email} />
+  </div>
+</header>

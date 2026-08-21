@@ -1,4 +1,7 @@
 ---
+import '../shared/marquee.css';
+import './Capabilities.css';
+
 const groups = [
   {
     title: 'Engineering',
@@ -25,7 +28,7 @@ const marqueeWords = [
 ];
 ---
 
-<div class="border-border border-t border-b" data-marquee aria-hidden="true">
+<div class="capabilities-marquee" data-marquee aria-hidden="true">
   <div class="marquee-track" data-marquee-track>
     <div class="marquee-group">
       {
@@ -46,39 +49,23 @@ const marqueeWords = [
   </div>
 </div>
 
-<section
-  id="experience"
-  class="mx-auto max-w-6xl px-6 py-[var(--spacing-section)] md:px-10"
->
-  <p class="eyebrow mb-8" data-reveal>Capabilities</p>
-  <h2
-    class="font-display text-section mb-16 max-w-3xl leading-[1.08] font-medium tracking-[-0.025em]"
-    data-reveal
-  >
-    What I bring to the table.
-  </h2>
+<section id="experience" class="capabilities">
+  <p class="eyebrow capabilities__eyebrow" data-reveal>Capabilities</p>
+  <h2 class="capabilities__title" data-reveal>What I bring to the table.</h2>
 
-  <div class="grid gap-12 md:grid-cols-3 md:gap-10">
+  <div class="capabilities__grid">
     {
       groups.map((g, i) => (
-        <div
-          class="border-border border-t pt-6"
-          data-reveal
-          data-reveal-delay={String(i * 0.1)}
-        >
-          <div class="flex items-baseline justify-between gap-4">
-            <span class="font-display text-accent text-sm font-medium">
-              / {g.title}
-            </span>
-            <span class="font-display text-text-muted text-sm tabular-nums">
+        <div class="capability" data-reveal data-reveal-delay={String(i * 0.1)}>
+          <div class="capability__head">
+            <span class="capability__name">/ {g.title}</span>
+            <span class="capability__num">
               {String(i + 1).padStart(2, '0')}
             </span>
           </div>
-          <ul class="text-text-muted mt-4 flex flex-col gap-1 text-sm leading-relaxed">
+          <ul class="capability__tags">
             {g.tags.map((t) => (
-              <li class="hover:text-text transition-colors duration-300">
-                {t}
-              </li>
+              <li class="capability__tag">{t}</li>
             ))}
           </ul>
         </div>

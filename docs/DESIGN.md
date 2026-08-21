@@ -104,7 +104,7 @@ Suggested conceptual scale:
 - 160
 - 192
 
-Actual values can be mapped through Tailwind tokens or CSS variables.
+Actual values are mapped through CSS variables defined in `src/styles/base.css`.
 
 Large section spacing should be intentionally responsive.
 
@@ -321,7 +321,7 @@ Minimum expectations:
 
 Do not use:
 
-- Default Tailwind component styling without customization
+- Uncustomized framework default component styling
 - Excessive gradients
 - Excessive glassmorphism
 - Random decorative circles

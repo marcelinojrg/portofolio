@@ -12,6 +12,7 @@ import { initShowcase } from './showcase';
 import { initCursor } from './cursor';
 import { initSmoothScroll, destroySmoothScroll } from './smooth-scroll';
 import { initUI, teardownUI } from './ui';
+import { runTeardown } from './teardown';
 
 let ready = false;
 
@@ -49,6 +50,7 @@ export function initMotion() {
 export function teardownMotion() {
   destroySmoothScroll();
   killAllMotion();
+  runTeardown();
   teardownUI();
   ready = false;
 }

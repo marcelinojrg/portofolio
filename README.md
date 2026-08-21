@@ -16,15 +16,15 @@ This is the personal portfolio of **Marcelino Jorgi** — built as a cinematic, 
 
 ## 🛠 Tech Stack
 
-| Layer        | Choice                                   |
-| ------------ | ---------------------------------------- |
-| Framework    | [Astro 5](https://astro.build)           |
-| Language     | TypeScript                               |
-| Styling      | Tailwind CSS v4 (Vite plugin)            |
-| Motion       | GSAP + ScrollTrigger                     |
-| Smooth scroll| Lenis                                    |
-| Interactivity| React islands _(only where needed)_      |
-| Fonts        | Self-hosted Space Grotesk + Inter        |
+| Layer         | Choice                              |
+| ------------- | ----------------------------------- |
+| Framework     | [Astro 7](https://astro.build)      |
+| Language      | TypeScript                          |
+| Styling       | Plain CSS — tokens in `base.css`    |
+| Motion        | GSAP + ScrollTrigger                |
+| Smooth scroll | Lenis                               |
+| Interactivity | React islands _(only where needed)_ |
+| Fonts         | Self-hosted Space Grotesk + Inter   |
 
 ## 🚀 Getting Started
 
@@ -42,13 +42,13 @@ npm run preview
 
 ### Scripts
 
-| Command             | Description                          |
-| ------------------- | ------------------------------------ |
-| `npm run dev`       | Start the local dev server           |
-| `npm run build`     | Build the static site to `dist/`     |
-| `npm run preview`   | Preview the production build locally |
-| `npm run check`     | Run Astro's type/lint checks         |
-| `npm run format`    | Format with Prettier                 |
+| Command           | Description                          |
+| ----------------- | ------------------------------------ |
+| `npm run dev`     | Start the local dev server           |
+| `npm run build`   | Build the static site to `dist/`     |
+| `npm run preview` | Preview the production build locally |
+| `npm run check`   | Run Astro's type/lint checks         |
+| `npm run format`  | Format with Prettier                 |
 
 ## 📁 Project Structure
 

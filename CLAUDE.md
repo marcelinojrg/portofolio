@@ -6,10 +6,10 @@ The site is designed as a premium, motion-forward digital experience rather than
 
 ## Stack
 
-- Astro
+- Astro 7
 - TypeScript
 - React, only for interaction-heavy islands
-- Tailwind CSS
+- Plain CSS — semantic classes, one stylesheet per section component
 - GSAP
 - GSAP ScrollTrigger
 - npm

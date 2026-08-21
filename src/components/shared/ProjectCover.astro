@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import './ProjectCover.css';
 
 interface Props {
   project: CollectionEntry<'projects'>;
@@ -20,15 +21,12 @@ const TINTS = {
 
 const hue = TINTS[tint] ?? TINTS.blue;
 const num = String(index + 1).padStart(2, '0');
-const gradId = `g-${uid ?? project.slug}`;
+const gradId = `g-${uid ?? project.id}`;
 ---
 
-<div
-  class="relative aspect-[4/3] w-full overflow-hidden md:aspect-[16/10]"
-  data-cover
->
+<div class="project-cover-frame" data-cover>
   <svg
-    class="project-cover absolute inset-0 h-full w-full"
+    class="project-cover"
     viewBox="0 0 800 500"
     preserveAspectRatio="xMidYMid slice"
     aria-hidden="true"

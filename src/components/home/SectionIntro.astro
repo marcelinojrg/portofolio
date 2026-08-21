@@ -1,27 +1,15 @@
 ---
-
+import './SectionIntro.css';
 ---
 
-<section
-  class="relative mx-auto max-w-6xl overflow-hidden px-6 py-[var(--spacing-section)] md:px-10"
->
-  <span
-    class="section-intro-watermark"
-    aria-hidden="true">Approach</span
-  >
-  <h2
-    class="font-display text-statement relative z-10 leading-[1.05] font-medium tracking-[-0.02em]"
-    data-lines
-  >
-    <span class="block">Structure, then craft.</span>
-    <span class="text-accent-warm block font-bold italic">Then ship it.</span>
+<section class="section-intro">
+  <span class="section-intro-watermark" aria-hidden="true">Approach</span>
+  <h2 class="section-intro__title" data-lines>
+    <span>Structure, then craft.</span>
+    <span class="section-intro__accent">Then ship it.</span>
   </h2>
   <span class="section-intro-rule" data-rule-draw aria-hidden="true"></span>
-  <p
-    class="text-text-muted relative z-10 mt-8 max-w-xl text-base leading-relaxed"
-    data-reveal
-    data-word-scrub
-  >
+  <p class="section-intro__lede" data-reveal data-word-scrub>
     Good products emerge from understanding systems and people equally - not
     from adding features.
   </p>

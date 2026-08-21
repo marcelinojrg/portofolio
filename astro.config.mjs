@@ -1,11 +1,14 @@
 // @ts-check
 import { defineConfig, envField } from 'astro/config';
-import tailwindcss from '@tailwindcss/vite';
 import { loadEnv } from 'vite';
 
 const env = loadEnv('production', process.cwd(), '');
 
 export default defineConfig({
+  // Astro 7 defaults to `compressHTML: 'jsx'`, which strips whitespace between
+  // inline elements. This site is typography-led, so keep the HTML-aware
+  // compression from Astro 5/6 to preserve inter-word spacing exactly.
+  compressHTML: true,
   env: {
     schema: {
       SITE_URL: envField.string({ context: 'server', access: 'secret' }),
@@ -13,7 +16,6 @@ export default defineConfig({
   },
   site: env.SITE_URL,
   vite: {
-    plugins: [tailwindcss()],
     build: {
       rollupOptions: {
         output: {

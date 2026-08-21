@@ -1,5 +1,6 @@
 import { gsap } from 'gsap';
 import { prefersReducedMotion, isFinePointer } from './reduced-motion';
+import { onTeardown } from './teardown';
 
 /**
  * Custom cursor (ANIMATION.md §18) — dot + trailing ring.
@@ -36,19 +37,8 @@ export function initCursor() {
   const ringX = gsap.quickTo(ring, 'x', { duration: 0.45, ease: 'power3.out' });
   const ringY = gsap.quickTo(ring, 'y', { duration: 0.45, ease: 'power3.out' });
 
-  window.addEventListener('mousemove', (e) => {
-    show();
-    dotX(e.clientX);
-    dotY(e.clientY);
-    ringX(e.clientX);
-    ringY(e.clientY);
-  });
-
-  document.documentElement.addEventListener('mouseleave', hide);
-  window.addEventListener('blur', hide);
-
   // Ring grows uniformly on interactive targets; no text label.
-  document.addEventListener('mouseover', (e) => {
+  const onOver = (e: MouseEvent) => {
     const target = (e.target as HTMLElement).closest(
       '[data-cursor], a, button, [role="button"]',
     );
@@ -57,5 +47,23 @@ export function initCursor() {
       duration: 0.35,
       ease: 'power3.out',
     });
+  };
+
+  const onMove = (e: MouseEvent) => {
+    show();
+    dotX(e.clientX);
+    dotY(e.clientY);
+    ringX(e.clientX);
+    ringY(e.clientY);
+  };
+
+  window.addEventListener('mousemove', onMove);
+  window.addEventListener('blur', hide);
+  document.addEventListener('mouseover', onOver);
+
+  onTeardown(() => {
+    window.removeEventListener('mousemove', onMove);
+    window.removeEventListener('blur', hide);
+    document.removeEventListener('mouseover', onOver);
   });
 }

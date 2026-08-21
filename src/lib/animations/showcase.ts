@@ -1,5 +1,6 @@
 import { gsap } from 'gsap';
 import { prefersReducedMotion, isFinePointer } from './reduced-motion';
+import { onTeardown } from './teardown';
 
 /**
  * Kinetic project list (desktop): a fixed preview panel follows the cursor
@@ -39,11 +40,13 @@ export function initShowcase() {
     panel.classList.remove('is-active');
   };
 
-  window.addEventListener('mousemove', (e) => {
-    // Offset so the preview never sits under the cursor.
+  // Offset so the preview never sits under the cursor.
+  const onMove = (e: MouseEvent) => {
     panelX(e.clientX + 48);
     panelY(e.clientY - 140);
-  });
+  };
+  window.addEventListener('mousemove', onMove);
+  onTeardown(() => window.removeEventListener('mousemove', onMove));
 
   document
     .querySelectorAll<HTMLElement>('[data-showcase-row]')
