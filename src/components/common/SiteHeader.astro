@@ -1,0 +1,42 @@
+---
+import { site } from '@/lib/constants/site';
+import MobileMenu from './MobileMenu.astro';
+---
+
+<header
+  class="site-header bg-bg/80 fixed inset-x-0 top-0 z-40 backdrop-blur-md transition-colors duration-300"
+  data-header
+>
+  <div
+    class="mx-auto flex max-w-6xl items-center justify-between px-6 py-5 md:px-10"
+  >
+    <a
+      href="/"
+      class="font-display text-xl font-bold tracking-tight"
+      aria-label="Marcelino Jorgi - home"
+    >
+      MJ<span class="text-accent">.</span>
+    </a>
+
+    <nav class="hidden items-center gap-8 md:flex" aria-label="Primary">
+      {
+        site.nav.map((item) => (
+          <a
+            href={item.href}
+            class="text-text-muted hover:text-text text-sm transition-colors"
+          >
+            {item.label}
+          </a>
+        ))
+      }
+      <a
+        href={`mailto:${site.email}`}
+        class="border-text text-text hover:border-accent-warm inline-flex items-center gap-2 border px-4 py-2 text-sm font-medium transition-colors"
+      >
+        Get in touch
+      </a>
+    </nav>
+
+    <MobileMenu nav={site.nav} email={site.email} />
+  </div>
+</header>

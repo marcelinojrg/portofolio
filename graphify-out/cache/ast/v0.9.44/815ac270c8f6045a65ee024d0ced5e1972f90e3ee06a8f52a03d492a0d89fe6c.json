@@ -1,0 +1,33 @@
+{
+  "nodes": [
+    {
+      "id": "$graphify-root$_src_components_experience_capabilities_astro",
+      "label": "Capabilities.astro",
+      "file_type": "code",
+      "source_file": "src/components/experience/Capabilities.astro",
+      "source_location": "L1"
+    }
+  ],
+  "edges": [],
+  "raw_calls": [
+    {
+      "caller_nid": "$graphify-root$_src_components_experience_capabilities_astro",
+      "callee": "groups",
+      "is_member_call": false,
+      "indirect": true,
+      "context": "collection",
+      "source_file": "src/components/experience/Capabilities.astro",
+      "source_location": "L20"
+    },
+    {
+      "caller_nid": "$graphify-root$_src_components_experience_capabilities_astro",
+      "callee": "g",
+      "is_member_call": false,
+      "indirect": true,
+      "context": "collection",
+      "source_file": "src/components/experience/Capabilities.astro",
+      "source_location": "L24"
+    }
+  ],
+  "parse_errors": { "first_error_line": 1, "multiline_error": true }
+}

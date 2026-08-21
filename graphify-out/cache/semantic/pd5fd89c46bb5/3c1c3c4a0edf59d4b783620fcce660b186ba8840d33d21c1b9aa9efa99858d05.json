@@ -1,0 +1,88 @@
+{
+  "nodes": [
+    {
+      "id": "docs_readme_document",
+      "label": "docs/README.md (Documentation Guide)",
+      "file_type": "document",
+      "source_file": "docs/README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "docs_readme_document",
+      "target": "docs_vision_document",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/README.md",
+      "source_location": "Files",
+      "weight": 1.0
+    },
+    {
+      "source": "docs_readme_document",
+      "target": "docs_design_document",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/README.md",
+      "source_location": "Files",
+      "weight": 1.0
+    },
+    {
+      "source": "docs_readme_document",
+      "target": "docs_animation_document",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/README.md",
+      "source_location": "Files",
+      "weight": 1.0
+    },
+    {
+      "source": "docs_readme_document",
+      "target": "docs_content_document",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/README.md",
+      "source_location": "Files",
+      "weight": 1.0
+    },
+    {
+      "source": "docs_readme_document",
+      "target": "docs_architecture_document",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/README.md",
+      "source_location": "Files",
+      "weight": 1.0
+    },
+    {
+      "source": "docs_readme_document",
+      "target": "docs_components_document",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/README.md",
+      "source_location": "Files",
+      "weight": 1.0
+    },
+    {
+      "source": "docs_readme_document",
+      "target": "agents_document",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/README.md",
+      "source_location": "Changing the stack",
+      "weight": 1.0
+    }
+  ],
+  "hyperedges": []
+}

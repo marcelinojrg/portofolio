@@ -1,0 +1,132 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from './BaseLayout.astro';
+import SiteHeader from '../components/common/SiteHeader.astro';
+import SiteFooter from '../components/common/SiteFooter.astro';
+import ProjectCover from '../components/projects/ProjectCover.astro';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+  index: number;
+  prev?: CollectionEntry<'projects'>;
+  next?: CollectionEntry<'projects'>;
+}
+
+const { project, index, prev, next } = Astro.props;
+const { title, category, summary, year, role, status, technologies } =
+  project.data;
+
+// Don't ship raw [REPLACE:] text as the meta description.
+const safeSummary = summary.startsWith('[REPLACE:')
+  ? `${title} - ${category} case study by Marcelino Jorgi.`
+  : summary;
+---
+
+<BaseLayout title={`${title} - Marcelino Jorgi`} description={safeSummary}>
+  <SiteHeader />
+  <main id="main">
+    <article
+      class="mx-auto max-w-6xl px-6 pt-32 pb-[var(--spacing-section)] md:px-10 md:pt-40"
+    >
+      <header class="mb-12 md:mb-16">
+        <p class="eyebrow mb-6" data-hero>
+          <a href="/#work" class="hover:text-text transition-colors"
+            >&larr; Selected work</a
+          >
+        </p>
+        <h1
+          class="font-display text-project max-w-4xl leading-[1.06] font-medium tracking-[-0.03em]"
+          data-hero
+        >
+          {title}
+        </h1>
+        <p
+          class="text-text-muted mt-6 max-w-2xl text-base leading-relaxed"
+          data-hero
+        >
+          {summary}
+        </p>
+      </header>
+
+      <dl
+        class="border-border mb-12 grid grid-cols-2 gap-6 border-y py-6 md:mb-16 md:grid-cols-4"
+        data-reveal
+      >
+        <div>
+          <dt class="eyebrow">Year</dt>
+          <dd class="mt-2 text-sm font-medium tabular-nums">{year}</dd>
+        </div>
+        <div>
+          <dt class="eyebrow">Category</dt>
+          <dd class="mt-2 text-sm font-medium">{category}</dd>
+        </div>
+        <div>
+          <dt class="eyebrow">Role</dt>
+          <dd class="mt-2 text-sm font-medium">{role.join(', ')}</dd>
+        </div>
+        <div>
+          <dt class="eyebrow">Status</dt>
+          <dd class="mt-2 text-sm font-medium">{status}</dd>
+        </div>
+      </dl>
+
+      <div class="border-border bg-surface overflow-hidden border" data-reveal>
+        <ProjectCover {project} {index} />
+      </div>
+
+      <div class="prose-case mt-16 max-w-3xl md:mt-24" data-reveal>
+        <slot />
+      </div>
+
+      {
+        technologies.length > 0 && (
+          <ul
+            class="border-border mt-12 flex flex-wrap gap-x-5 gap-y-2 border-t pt-8"
+            data-reveal
+          >
+            {technologies.map((t) => (
+              <li class="text-text-muted text-sm">/ {t}</li>
+            ))}
+          </ul>
+        )
+      }
+
+      <nav
+        class="border-border mt-24 grid gap-6 border-t pt-10 md:grid-cols-2"
+        aria-label="Project navigation"
+      >
+        {
+          prev ? (
+            <a
+              href={`/work/${prev.slug}`}
+              class="group flex flex-col gap-2"
+              data-reveal
+            >
+              <span class="eyebrow">&larr; Previous</span>
+              <span class="font-display group-hover:text-text-muted text-xl font-medium transition-colors">
+                {prev.data.title}
+              </span>
+            </a>
+          ) : (
+            <span aria-hidden="true" />
+          )
+        }
+        {
+          next && (
+            <a
+              href={`/work/${next.slug}`}
+              class="group flex flex-col items-end gap-2 text-right"
+              data-reveal
+            >
+              <span class="eyebrow">Next &rarr;</span>
+              <span class="font-display group-hover:text-text-muted text-xl font-medium transition-colors">
+                {next.data.title}
+              </span>
+            </a>
+          )
+        }
+      </nav>
+    </article>
+  </main>
+  <SiteFooter />
+</BaseLayout>

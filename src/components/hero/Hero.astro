@@ -1,0 +1,229 @@
+---
+import { site } from '@/lib/constants/site';
+---
+
+<section
+  class="relative flex min-h-[100svh] flex-col justify-center overflow-hidden pt-24 pb-28 md:pb-32"
+>
+  <div class="mx-auto w-full max-w-6xl px-6 md:px-10" data-hero-scene>
+    <div class="mb-10 flex items-center gap-4" data-hero>
+      <p class="eyebrow">{site.name} - {site.role}</p>
+      <span class="bg-border h-px flex-1"></span>
+    </div>
+
+    <h1 class="hero-title" data-hero-title>
+      <span class="hero-title__line">
+        <span class="hero-title__word hero-greeting" data-hero-word
+          >Hello <span class="hero-emoji" data-hero-emoji aria-hidden="true">👋</span></span
+        >
+      </span>
+      <span class="hero-title__line">
+        <span class="hero-title__word hero-name" data-hero-word
+          >I'm <span class="hero-rotate hero-accent" data-hero-rotate></span></span
+        >
+      </span>
+    </h1>
+
+    <p class="hero-note" data-hero>
+      Idk what kind of website I'm building here.
+    </p>
+
+    <div
+      class="border-border mt-10 flex flex-col gap-8 border-t pt-8 md:flex-row md:items-end md:justify-between"
+      data-hero
+    >
+      <p class="text-text-muted max-w-sm text-base leading-relaxed">
+        Information Systems student building digital products - blending
+        systems thinking, code, and visual design.
+      </p>
+      <div class="flex items-end justify-between gap-8 md:justify-end">
+        <div class="hidden md:block">
+          <span class="hero-scroll-hint">
+            <span class="eyebrow">Scroll</span>
+            <span class="hero-scroll-hint__line" data-hero-scroll-line></span>
+          </span>
+        </div>
+        <a
+          href="/#work"
+          class="group inline-flex w-fit items-center gap-2 text-sm font-medium tracking-wide underline-offset-4 hover:underline"
+          data-magnetic
+        >
+          View selected work
+          <span
+            class="transition-transform duration-300 group-hover:translate-x-1"
+            >&rarr;</span
+          >
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-marquee" data-marquee aria-hidden="true">
+    <div class="marquee-track" data-marquee-track>
+      <div class="marquee-group">
+        {
+          Array.from({ length: 3 }).flatMap(() => [
+            <span class="marquee-item">Creative Technologist</span>,
+            <span class="marquee-star">&#10022;</span>,
+            <span class="marquee-item">Information Systems</span>,
+            <span class="marquee-star">&#10022;</span>,
+            <span class="marquee-item">Design &amp; Code</span>,
+            <span class="marquee-star">&#10022;</span>,
+          ])
+        }
+      </div>
+      <div class="marquee-group" aria-hidden="true">
+        {
+          Array.from({ length: 3 }).flatMap(() => [
+            <span class="marquee-item">Creative Technologist</span>,
+            <span class="marquee-star">&#10022;</span>,
+            <span class="marquee-item">Information Systems</span>,
+            <span class="marquee-star">&#10022;</span>,
+            <span class="marquee-item">Design &amp; Code</span>,
+            <span class="marquee-star">&#10022;</span>,
+          ])
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  type TimedEl = HTMLElement & { _timer?: ReturnType<typeof setInterval> | null };
+
+  function initHeroEmoji() {
+    const el = document.querySelector<HTMLElement>('[data-hero-emoji]');
+    if (!el || el.dataset.emojiReady) return;
+    el.dataset.emojiReady = 'true';
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const emojis = ['👋', '✨', '🚀'];
+    let i = 0;
+    setInterval(() => {
+      i = (i + 1) % emojis.length;
+      el.style.opacity = '0';
+      setTimeout(() => {
+        el.textContent = emojis[i];
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(0.4em)';
+        requestAnimationFrame(() =>
+          requestAnimationFrame(() => {
+            el.style.opacity = '1';
+            el.style.transform = 'translateY(0)';
+          }),
+        );
+      }, 420);
+    }, 5000);
+  }
+  document.addEventListener('astro:page-load', initHeroEmoji);
+
+  function initHeroRotate() {
+    const el = document.querySelector<HTMLElement>('[data-hero-rotate]');
+    if (!el || el.dataset.rotateReady) return;
+    el.dataset.rotateReady = 'true';
+
+    const words = ['Marcelino Jorgi', 'a Developer', 'a Designer', 'a Student'];
+    const maxLen = Math.max(...words.map((w) => w.length));
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const GLYPHS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz#%&*/';
+    const toChars = (t: string) => [...t];
+
+    for (let i = 0; i < maxLen; i++) {
+      const s = document.createElement('span');
+      s.className = 'ch';
+      s.setAttribute('aria-hidden', 'true');
+      el.appendChild(s);
+    }
+    const spans = Array.from(el.children) as TimedEl[];
+
+    const clearAll = () =>
+      spans.forEach((s) => {
+        if (s._timer) {
+          clearInterval(s._timer);
+          s._timer = null;
+        }
+      });
+
+    const setStatic = (span: HTMLElement, c: string) => {
+      if (c === '') {
+        span.textContent = '';
+        span.style.opacity = '0';
+      } else if (c === ' ') {
+        span.textContent = ' ';
+        span.style.opacity = '1';
+      } else {
+        span.textContent = c;
+        span.style.opacity = '1';
+      }
+    };
+
+    let runId = 0;
+    let pending: ReturnType<typeof setTimeout> | null = null;
+
+    const paint = (text: string, animate: boolean, onDone?: () => void) => {
+      el.setAttribute('aria-label', text);
+      const chars = toChars(text);
+      if (!animate) {
+        clearAll();
+        spans.forEach((span, i) => setStatic(span, chars[i] ?? ''));
+        onDone?.();
+        return;
+      }
+      clearAll();
+      if (pending) {
+        clearTimeout(pending);
+        pending = null;
+      }
+      const myRun = ++runId;
+      let i = 0;
+      const step = () => {
+        if (myRun !== runId || i >= spans.length) {
+          onDone?.();
+          return;
+        }
+        const span = spans[i];
+        const c = chars[i] ?? '';
+        i++;
+        if (c === '' || c === ' ') {
+          setStatic(span, c);
+          step();
+          return;
+        }
+        span.style.opacity = '1';
+        const start = performance.now();
+        const duration = 260;
+        span._timer = setInterval(() => {
+          if (myRun !== runId) {
+            if (span._timer) clearInterval(span._timer);
+            return;
+          }
+          if (performance.now() - start >= duration) {
+            if (span._timer) clearInterval(span._timer);
+            span._timer = null;
+            span.textContent = c;
+            step();
+          } else {
+            span.textContent = GLYPHS[(Math.random() * GLYPHS.length) | 0];
+          }
+        }, 35);
+      };
+      step();
+    };
+
+    if (reduce) {
+      paint(words[0], false);
+      return;
+    }
+
+    paint(words[0], false);
+    let idx = 0;
+    const cycle = () => {
+      idx = (idx + 1) % words.length;
+      paint(words[idx], true, () => {
+        pending = setTimeout(cycle, 4000);
+      });
+    };
+    pending = setTimeout(cycle, 4000);
+  }
+  document.addEventListener('astro:page-load', initHeroRotate);
+</script>

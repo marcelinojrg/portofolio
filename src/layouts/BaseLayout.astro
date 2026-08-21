@@ -1,0 +1,64 @@
+---
+import '../styles/globals.css';
+import { ClientRouter } from 'astro:transitions';
+import Intro from '../components/common/Intro.astro';
+import Cursor from '../components/common/Cursor.astro';
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="en" transition:animate="fade">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary" />
+    <ClientRouter />
+    <script is:inline>
+      // Mark JS availability before first paint so CSS can pre-set motion
+      // initial states (no flash). Skipped under reduced motion; if the
+      // motion bundle never runs, `js` is removed so content stays visible.
+      (function () {
+        if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          document.documentElement.classList.add('js');
+        }
+        window.addEventListener('load', function () {
+          if (!window.__motionReady) {
+            document.documentElement.classList.remove('js');
+            // Motion bundle failed — the kinetic intro (and its scroll lock)
+            // must never trap the visitor on a dead overlay.
+            document.documentElement.style.overflow = '';
+          }
+        });
+      })();
+    </script>
+  </head>
+  <body>
+    <a
+      href="#main"
+      class="focus:bg-surface sr-only focus:not-sr-only focus:absolute focus:z-50 focus:px-4 focus:py-2"
+      >Skip to content</a
+    >
+    <Cursor />
+    <Intro />
+    <slot />
+    <script>
+      import '../lib/animations';
+    </script>
+  </body>
+</html>

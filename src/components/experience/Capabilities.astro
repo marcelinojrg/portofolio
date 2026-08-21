@@ -1,0 +1,88 @@
+---
+const groups = [
+  {
+    title: 'Engineering',
+    tags: ['TypeScript', 'React', 'Astro', 'SQL', 'Node.js'],
+  },
+  {
+    title: 'Design',
+    tags: ['UI/UX', 'Prototyping', 'Design Systems', 'Motion'],
+  },
+  {
+    title: 'Strategy',
+    tags: ['Systems Thinking', 'Product', 'Research', 'Technical Writing'],
+  },
+];
+
+const marqueeWords = [
+  'Systems Thinking',
+  'TypeScript',
+  'Interface Design',
+  'React',
+  'Motion',
+  'Data & SQL',
+  'Prototyping',
+];
+---
+
+<div class="border-border border-t border-b" data-marquee aria-hidden="true">
+  <div class="marquee-track" data-marquee-track>
+    <div class="marquee-group">
+      {
+        marqueeWords.flatMap((w) => [
+          <span class="marquee-item">{w}</span>,
+          <span class="marquee-star">&#10022;</span>,
+        ])
+      }
+    </div>
+    <div class="marquee-group" aria-hidden="true">
+      {
+        marqueeWords.flatMap((w) => [
+          <span class="marquee-item">{w}</span>,
+          <span class="marquee-star">&#10022;</span>,
+        ])
+      }
+    </div>
+  </div>
+</div>
+
+<section
+  id="experience"
+  class="mx-auto max-w-6xl px-6 py-[var(--spacing-section)] md:px-10"
+>
+  <p class="eyebrow mb-8" data-reveal>Capabilities</p>
+  <h2
+    class="font-display text-section mb-16 max-w-3xl leading-[1.08] font-medium tracking-[-0.025em]"
+    data-reveal
+  >
+    What I bring to the table.
+  </h2>
+
+  <div class="grid gap-12 md:grid-cols-3 md:gap-10">
+    {
+      groups.map((g, i) => (
+        <div
+          class="border-border border-t pt-6"
+          data-reveal
+          data-reveal-delay={String(i * 0.1)}
+        >
+          <div class="flex items-baseline justify-between gap-4">
+            <span class="font-display text-accent text-sm font-medium">
+              / {g.title}
+            </span>
+            <span class="font-display text-text-muted text-sm tabular-nums">
+              {String(i + 1).padStart(2, '0')}
+            </span>
+          </div>
+          <ul class="text-text-muted mt-4 flex flex-col gap-1 text-sm leading-relaxed">
+            {g.tags.map((t) => (
+              <li class="hover:text-text transition-colors duration-300">
+                {t}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))
+    }
+  </div>
+</section>

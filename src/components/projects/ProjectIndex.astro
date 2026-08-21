@@ -1,0 +1,67 @@
+---
+import { getCollection } from 'astro:content';
+import ProjectCover from './ProjectCover.astro';
+
+const projects = (await getCollection('projects'))
+  .filter((p) => p.data.featured)
+  .sort((a, b) => a.data.order - b.data.order);
+---
+
+<section
+  id="work"
+  class="mx-auto max-w-6xl px-6 py-[var(--spacing-section)] md:px-10"
+>
+  <div class="mb-16 flex items-end justify-between gap-6 md:mb-24">
+    <div>
+      <p class="eyebrow" data-reveal>Selected work</p>
+      <h2
+        class="font-display text-section mt-4 max-w-2xl font-medium tracking-[-0.025em]"
+        data-reveal
+      >
+        Selected projects, built to ship.
+      </h2>
+    </div>
+    <p class="text-text-muted hidden text-sm md:block" data-reveal>
+      Hover a row - the preview follows.
+    </p>
+  </div>
+
+  <ul class="border-border border-t">
+    {
+      projects.map((p, i) => (
+        <li data-reveal>
+          <a
+            href={`/work/${p.slug}`}
+            class="project-row group"
+            data-showcase-row={p.slug}
+          >
+            <span class="project-row__num">
+              {String(i + 1).padStart(2, '0')}
+            </span>
+            <span class="project-row__title">{p.data.title}</span>
+            <span class="project-row__meta">
+              {p.data.year} - {p.data.category}
+            </span>
+          </a>
+          <div class="project-row__cover" aria-hidden="true">
+            <ProjectCover project={p} index={i} uid={`row-${p.slug}`} />
+          </div>
+        </li>
+      ))
+    }
+  </ul>
+
+  <div class="showcase-preview" data-showcase-preview aria-hidden="true">
+    {
+      projects.map((p, i) => (
+        <div
+          class="showcase-preview__item"
+          data-preview-item={p.slug}
+          aria-hidden="true"
+        >
+          <ProjectCover project={p} index={i} uid={`pv-${p.slug}`} />
+        </div>
+      ))
+    }
+  </div>
+</section>

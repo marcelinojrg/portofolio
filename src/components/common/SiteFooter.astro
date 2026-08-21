@@ -1,0 +1,45 @@
+---
+import { site } from '@/lib/constants/site';
+---
+
+<footer class="border-border border-t">
+  <div class="mx-auto flex max-w-6xl flex-col gap-10 px-6 py-14 md:px-10">
+    <div
+      class="flex flex-col gap-6 md:flex-row md:items-start md:justify-between"
+    >
+      <p class="font-display text-2xl font-medium tracking-tight">
+        Let&rsquo;s build something.
+      </p>
+      <a
+        href={`mailto:${site.email}`}
+        class="text-sm font-medium underline-offset-4 transition-opacity hover:opacity-70"
+      >
+        {site.email}
+      </a>
+    </div>
+
+    <div
+      class="flex flex-col gap-6 md:flex-row md:items-center md:justify-between"
+    >
+      <ul class="flex gap-6" aria-label="Social links">
+        {
+          site.socials.map((s) => (
+            <li>
+              <a
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-text-muted hover:text-text text-sm underline-offset-4 transition-colors hover:underline"
+              >
+                {s.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="text-text-muted text-sm">
+        &copy; {new Date().getFullYear()} Marcelino Jorgi
+      </p>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,658 @@
+@import 'tailwindcss';
+
+/* Fonts — self-hosted via @fontsource */
+@import '@fontsource/space-grotesk/400.css';
+@import '@fontsource/space-grotesk/500.css';
+@import '@fontsource/space-grotesk/700.css';
+@import '@fontsource/inter/400.css';
+@import '@fontsource/inter/500.css';
+@import '@fontsource/inter/600.css';
+@import '@fontsource/inter/500-italic.css';
+
+/* Design tokens — semantic, centralized (DESIGN.md §3) */
+@theme {
+  --font-display: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --font-body: 'Inter', ui-sans-serif, system-ui, sans-serif;
+
+  --color-bg: #f7f6f3;
+  --color-surface: #ffffff;
+  --color-text: #131311;
+  --color-text-muted: #5f5e58;
+  --color-border: #e3e1da;
+  --color-accent: #2b5cff;
+  --color-accent-inverse: #8ab0ff;
+  /* Warm secondary accent — used sparingly alongside the blue primary so the
+     page reads as a two-tone system, not a single accent. Anchored to the
+     "warm" project-cover tint so color stays coherent (DESIGN.md §3). */
+  --color-accent-warm: #ff5c1f;
+  --color-inverse-bg: #0e1226;
+  --color-inverse-text: #f7f6f3;
+  --color-inverse-muted: #a6a49d;
+
+  /* Display scale — hero is the ONLY very large size; every section below
+     stays clearly subordinate so scale stays contrastive (DESIGN.md §4-5).
+     Project titles use --text-project, deliberately under the hero. */
+  /* Display scale — the kinetic hero name is the ONLY monumental size; every
+     section below stays clearly subordinate so scale stays contrastive. */
+  --text-hero: clamp(2.25rem, 5.5vw, 4.25rem);
+  --text-project: clamp(2.25rem, 5vw, 3.75rem);
+  --text-statement: clamp(1.75rem, 2.5vw, 2.25rem);
+  --text-section: clamp(1.5rem, 2.6vw, 2rem);
+  --text-closer: clamp(1.6rem, 3vw, 2.25rem);
+  --text-contact: clamp(2.75rem, 7vw, 6rem);
+
+  --spacing-section: clamp(4.5rem, 9vw, 8rem);
+}
+
+/* ---------- Base ---------- */
+:root {
+  color-scheme: light;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  /* Lenis drives smooth scrolling; CSS smooth would double-smooth. */
+  scroll-padding-top: 5rem;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* Film grain — a barely-there material layer, static and non-interactive. */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+}
+
+/* Display font ONLY on headings + large statements. Never on labels/body. */
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+/* Line reveal — each line is a full-width block with its own mask.
+   Lines are authored as spans in markup; GSAP only animates them. */
+[data-lines] {
+  overflow: hidden;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+[data-lines] > span {
+  display: block;
+}
+
+/* Eyebrow / label — Inter, disciplined. This is a component-level convention. */
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+/* Case study body — minimal typography for rendered project Markdown. */
+.prose-case > * + * {
+  margin-top: 1.25em;
+}
+.prose-case h2,
+.prose-case h3 {
+  margin-top: 2em;
+  font-size: 1.5rem;
+}
+.prose-case p {
+  color: var(--color-text-muted);
+  line-height: 1.7;
+}
+.prose-case ul {
+  list-style: disc;
+  padding-left: 1.25rem;
+  color: var(--color-text-muted);
+}
+.prose-case a {
+  color: var(--color-text);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: #fff;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ---------- Anti-flash initial states ----------
+   The inline head script adds `html.js` before first paint (skipped under
+   reduced motion). These states mirror GSAP's from-values exactly, so the
+   page never paints visible content that then blinks out. If the motion
+   bundle fails, the same script removes `js` on window load. */
+@media (prefers-reduced-motion: no-preference) {
+  html.js [data-hero] {
+    opacity: 0;
+    transform: translateY(48px);
+  }
+  html.js [data-reveal] {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  html.js [data-lines] > span {
+    transform: translateY(115%);
+  }
+  html.js [data-cover] {
+    clip-path: inset(0 0 100% 0);
+    transform: scale(1.12);
+  }
+  html.js [data-hero-word] {
+    transform: translateY(115%) rotate(1.5deg);
+  }
+  html.js .site-intro__word {
+    transform: translateY(-115%);
+  }
+  /* The kinetic intro overlay is the one element gated INVERTED: it must be
+     visible exactly when JS + full motion are available, and never block the
+     page otherwise (see .site-intro rules below). */
+  html.js .site-intro {
+    display: flex;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* ---------- Motion primitives ---------- */
+
+/* Site header — gains a hairline border once the page scrolls (COMPONENTS.md §2 "Scrolled"). */
+.site-header {
+  border-bottom: 1px solid transparent;
+  transition:
+    border-color 300ms ease,
+    background-color 300ms ease;
+}
+.site-header[data-scrolled] {
+  border-bottom-color: var(--color-border);
+}
+
+/* Project cover — lift on hover, smooth scale (transform only). */
+.project-cover {
+  transform-origin: center;
+  transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.group:hover .project-cover {
+  transform: scale(1.035);
+}
+
+/* Ambient drift — slow, GPU-friendly, disabled under reduced-motion. */
+@keyframes drift {
+  from {
+    transform: translate(0, 0);
+  }
+  to {
+    transform: translate(-2%, 2%);
+  }
+}
+.project-cover-drift {
+  transform-origin: center;
+  animation: drift 14s ease-in-out infinite alternate;
+}
+@media (prefers-reduced-motion: reduce) {
+  .project-cover-drift {
+    animation: none;
+  }
+}
+
+/* ---------- Mobile menu ---------- */
+.menu-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  height: 1px;
+  width: 1.5rem;
+  background: var(--color-text);
+  transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+[data-menu-toggle][aria-expanded='false'] .menu-line-top {
+  transform: translateY(-6px);
+}
+[data-menu-toggle][aria-expanded='false'] .menu-line-bottom {
+  transform: translateY(6px);
+}
+[data-menu-toggle][aria-expanded='true'] .menu-line-top {
+  transform: translateY(0) rotate(45deg);
+}
+[data-menu-toggle][aria-expanded='true'] .menu-line-bottom {
+  transform: translateY(0) rotate(-45deg);
+}
+[data-menu-overlay] {
+  transition: opacity 250ms ease;
+}
+
+/* ---------- Kinetic intro ----------
+   Full-viewport ink curtain. Visible ONLY under html.js + full motion;
+   without JS (or under reduced motion) it never renders, so content is
+   never hidden behind a dead overlay. */
+.site-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-inverse-bg);
+  color: var(--color-inverse-text);
+}
+.site-intro__title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 7vw, 5.5rem);
+  font-weight: 500;
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+  text-align: center;
+}
+.site-intro__mask {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+.site-intro__word {
+  display: block;
+  will-change: transform;
+}
+.site-intro__count {
+  position: absolute;
+  right: 2rem;
+  bottom: 1.5rem;
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  letter-spacing: 0.2em;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-inverse-muted);
+}
+.site-intro__bar {
+  position: absolute;
+  left: 2rem;
+  bottom: 1.75rem;
+  width: 8rem;
+  height: 1px;
+  background: var(--color-inverse-muted);
+  transform-origin: left;
+}
+
+/* ---------- Custom cursor (desktop, full-motion only) ----------
+   Additive: a dot + trailing ring with a context label. The native cursor
+   is hidden only while the custom cursor is active (html.cursor-on), and
+   touch / reduced-motion visitors keep the normal cursor. */
+.cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 95;
+  pointer-events: none;
+  mix-blend-mode: difference;
+}
+html.cursor-on,
+html.cursor-on * {
+  cursor: none;
+}
+.cursor__dot {
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  border-radius: 9999px;
+  background: #fff;
+  opacity: 0;
+}
+.cursor__ring {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border-radius: 9999px;
+  border: 1.5px solid rgba(255, 255, 255, 0.9);
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+@media (hover: none), (prefers-reduced-motion: reduce) {
+  html.cursor-on,
+  html.cursor-on * {
+    cursor: auto;
+  }
+  .cursor {
+    display: none;
+  }
+}
+
+/* ---------- Marquee bands ----------
+   Two identical groups inside the track; GSAP loops the track at xPercent -50
+   for a seamless scroll. Transform-only, GPU-friendly (ANIMATION.md §25). */
+[data-marquee] {
+  overflow: hidden;
+  user-select: none;
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+}
+.marquee-group {
+  display: flex;
+  align-items: center;
+  padding-right: 2rem;
+}
+.marquee-item {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+.marquee-star {
+  margin: 0 2rem;
+  color: var(--color-accent);
+}
+.hero-marquee {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border-top: 1px solid var(--color-border);
+  padding: 1rem 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-marquee] {
+    overflow: hidden;
+  }
+  .marquee-track {
+    flex-wrap: nowrap;
+  }
+}
+
+/* ---------- Kinetic hero ---------- */
+.hero-title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+}
+.hero-greeting {
+  display: block;
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-weight: 500;
+  color: var(--color-text-muted);
+  letter-spacing: -0.01em;
+}
+.hero-name {
+  display: block;
+  font-size: clamp(2.5rem, 6.5vw, 4.75rem);
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+}
+.hero-accent {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-weight: 600;
+  color: var(--color-accent);
+  letter-spacing: -0.01em;
+}
+.hero-rotate {
+  white-space: pre;
+}
+.hero-rotate .ch {
+  display: inline-block;
+  transition:
+    opacity 220ms ease,
+    transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform, opacity;
+}
+.hero-note {
+  margin-top: 1.75rem;
+  max-width: 34ch;
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--color-text-muted);
+}
+.hero-emoji {
+  display: inline-block;
+  font-family: var(--font-body);
+  opacity: 1;
+  transition:
+    opacity 420ms ease,
+    transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform, opacity;
+}
+.hero-title__line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.32em;
+  margin-bottom: -0.32em;
+}
+.hero-title__word {
+  display: inline-block;
+  will-change: transform;
+}
+.hero-scroll-hint {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--color-text-muted);
+}
+.hero-scroll-hint__line {
+  display: block;
+  width: 1px;
+  height: 3.5rem;
+  background: var(--color-text-muted);
+  transform-origin: top;
+}
+
+/* ---------- Kinetic project list ----------
+   Desktop rows are pure text; a fixed preview panel follows the cursor and
+   shows the cover. Mobile keeps inline covers. Reduced-motion shows covers
+   inline everywhere (the panel never activates without motion). */
+.project-row {
+  display: grid;
+  grid-template-columns: 3.5rem 1fr auto;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 2.25rem 0;
+  border-bottom: 1px solid var(--color-border);
+}
+.project-row__num {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
+  transition: color 300ms ease;
+}
+.project-row__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3.5vw, 2.75rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  transition:
+    transform 500ms cubic-bezier(0.22, 1, 0.36, 1),
+    color 300ms ease;
+  will-change: transform;
+}
+.project-row__meta {
+  display: none;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+.project-row:hover .project-row__num {
+  color: var(--color-accent);
+}
+.project-row:hover .project-row__title {
+  transform: translateX(1.5rem);
+  color: var(--color-accent);
+}
+.project-row__cover {
+  display: none;
+}
+.showcase-preview {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 60;
+  width: min(26rem, 40vw);
+  aspect-ratio: 4 / 3;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 300ms ease;
+  will-change: transform;
+}
+.showcase-preview.is-active {
+  opacity: 1;
+}
+.showcase-preview__item {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: scale(0.94);
+  transition:
+    opacity 450ms ease,
+    transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.showcase-preview__item.is-active {
+  opacity: 1;
+  transform: scale(1);
+}
+@media (max-width: 767px) {
+  .project-row {
+    grid-template-columns: 3rem 1fr;
+  }
+  .project-row__cover {
+    display: block;
+  }
+  .project-row__cover {
+    margin-top: 0.5rem;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .project-row__cover {
+    display: block;
+  }
+  .showcase-preview {
+    display: none;
+  }
+}
+
+/* ---------- Section intro ---------- */
+.section-intro-watermark {
+  position: absolute;
+  top: 0.25em;
+  right: -0.04em;
+  z-index: 0;
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 13vw, 12rem);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--color-text);
+  opacity: 0.05;
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+}
+.section-intro-rule {
+  display: block;
+  width: clamp(3rem, 8vw, 5rem);
+  height: 2px;
+  margin-top: 1.5rem;
+  background: var(--color-accent-warm);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.section-intro-rule.is-drawn {
+  transform: scaleX(1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .section-intro-rule {
+    transform: scaleX(1);
+  }
+}
+
+/* ---------- Word scrub (scroll-linked highlight) ---------- */
+.ws-word {
+  display: inline-block;
+  will-change: color;
+}
+
+/* ---------- Contact monument ---------- */
+.contact-watermark {
+  position: absolute;
+  right: -0.05em;
+  bottom: -0.12em;
+  font-family: var(--font-display);
+  font-size: clamp(8rem, 22vw, 19rem);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--color-inverse-muted);
+  opacity: 0.08;
+  pointer-events: none;
+  user-select: none;
+}
+.contact-mail-underline {
+  text-decoration: underline;
+  text-underline-offset: 8px;
+}
+.contact-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: 9999px;
+  border: 1px solid var(--color-inverse-muted);
+  font-size: 1.25rem;
+  transition:
+    transform 400ms cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 300ms ease,
+    border-color 300ms ease;
+}
+.group:hover .contact-arrow {
+  transform: translate(4px, -4px);
+  background: var(--color-inverse-text);
+  border-color: var(--color-inverse-text);
+  color: var(--color-inverse-bg);
+}

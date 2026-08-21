@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/common/SiteHeader.astro';
+import SiteFooter from '../components/common/SiteFooter.astro';
+import Hero from '../components/hero/Hero.astro';
+import SectionIntro from '../components/section/SectionIntro.astro';
+import ProjectIndex from '../components/projects/ProjectIndex.astro';
+import AboutIntro from '../components/about/AboutIntro.astro';
+import Capabilities from '../components/experience/Capabilities.astro';
+import ContactCTA from '../components/contact/ContactCTA.astro';
+---
+
+<BaseLayout
+  title="Marcelino Jorgi - Creative Technologist"
+  description="Portfolio of Marcelino Jorgi, Information Systems student and creative technologist building digital experiences."
+>
+  <SiteHeader />
+  <main id="main">
+    <Hero />
+    <SectionIntro />
+    <ProjectIndex />
+    <AboutIntro />
+    <Capabilities />
+    <ContactCTA />
+  </main>
+  <SiteFooter />
+</BaseLayout>

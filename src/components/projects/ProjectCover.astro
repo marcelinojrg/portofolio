@@ -1,0 +1,90 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+  index: number;
+  /** Unique id suffix for SVG gradient ids — required when the same cover is
+      rendered more than once on a page (row + preview panel). */
+  uid?: string;
+}
+
+const { project, index, uid } = Astro.props;
+const { tint } = project.data;
+
+const TINTS = {
+  blue: { a: '#2b5cff', b: '#9badff' },
+  warm: { a: '#ff5c1f', b: '#ffc7a3' },
+  violet: { a: '#7c3aed', b: '#c4b5fd' },
+} as const;
+
+const hue = TINTS[tint] ?? TINTS.blue;
+const num = String(index + 1).padStart(2, '0');
+const gradId = `g-${uid ?? project.slug}`;
+---
+
+<div
+  class="relative aspect-[4/3] w-full overflow-hidden md:aspect-[16/10]"
+  data-cover
+>
+  <svg
+    class="project-cover absolute inset-0 h-full w-full"
+    viewBox="0 0 800 500"
+    preserveAspectRatio="xMidYMid slice"
+    aria-hidden="true"
+  >
+    <defs>
+      <linearGradient id={gradId} x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color={hue.a} stop-opacity="0.16"></stop>
+        <stop offset="1" stop-color={hue.b} stop-opacity="0.04"></stop>
+      </linearGradient>
+    </defs>
+    <rect width="800" height="500" fill={`url(#${gradId})`}></rect>
+    <g class="project-cover-drift" aria-hidden="true">
+      <line
+        x1="0"
+        y1="380"
+        x2="800"
+        y2="180"
+        stroke={hue.a}
+        stroke-opacity="0.18"
+        stroke-width="1"></line>
+      <line
+        x1="0"
+        y1="420"
+        x2="800"
+        y2="220"
+        stroke={hue.a}
+        stroke-opacity="0.12"
+        stroke-width="1"></line>
+      <line
+        x1="0"
+        y1="460"
+        x2="800"
+        y2="260"
+        stroke={hue.a}
+        stroke-opacity="0.06"
+        stroke-width="1"></line>
+    </g>
+    <g fill={hue.b} aria-hidden="true">
+      {
+        [0, 1, 2, 3, 4].map((r) =>
+          [0, 1, 2, 3, 4, 5].map((c) => (
+            <circle cx={80 + c * 48} cy={90 + r * 48} r="2" />
+          )),
+        )
+      }
+    </g>
+    <text
+      x="52"
+      y="440"
+      font-family="Space Grotesk, sans-serif"
+      font-size="120"
+      font-weight="500"
+      fill={hue.a}
+      fill-opacity="0.9"
+    >
+      {num}
+    </text>
+  </svg>
+</div>

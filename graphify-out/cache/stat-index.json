@@ -1,0 +1,356 @@
+{
+  ".claude/settings.local.json": {
+    "size": 27,
+    "mtime_ns": 1787028966054713900,
+    "indexed_at_ns": 1787045449515359800,
+    "word_count": 4,
+    "hashes": {
+      ".claude/settings.local.json": "2617cad8fb3f940faf2b9b679c30fb56eac8f58a1ac81ba7eaa4d7155da29f0d"
+    }
+  },
+  "AGENTS.md": {
+    "size": 8141,
+    "mtime_ns": 1787037704869810700,
+    "indexed_at_ns": 1787045501280481200,
+    "word_count": 1220,
+    "hashes": {
+      "agents.md": "3b8b1b638904dd55003b7171ef7c52a7211275883b0db8c71ee2fd8ab2cc78c7"
+    }
+  },
+  "CLAUDE.md": {
+    "size": 1722,
+    "mtime_ns": 1787032515546150800,
+    "indexed_at_ns": 1787045501284189800,
+    "word_count": 239,
+    "hashes": {
+      "claude.md": "0909ab915edf573811c17e1b6a942a8c8217b2f465780bf01374c449c16e2898"
+    }
+  },
+  "astro.config.mjs": {
+    "size": 246,
+    "mtime_ns": 1787030945898061100,
+    "indexed_at_ns": 1787045366741205700,
+    "word_count": 27
+  },
+  "docs/ANIMATION.md": {
+    "size": 8850,
+    "mtime_ns": 1787030538985073700,
+    "indexed_at_ns": 1787045501286822900,
+    "word_count": 1280,
+    "hashes": {
+      "docs/animation.md": "5fdd496347d67986856be8ac1fdf815409f44add007764dae2317cc0d776a041"
+    }
+  },
+  "docs/ARCHITECTURE.md": {
+    "size": 6607,
+    "mtime_ns": 1787030539010595300,
+    "indexed_at_ns": 1787045501289388100,
+    "word_count": 922,
+    "hashes": {
+      "docs/architecture.md": "83ba27bca140f17e0d900bd61ab3697d60e44b21be749a1298a16b2f269bdc64"
+    }
+  },
+  "docs/COMPONENTS.md": {
+    "size": 4212,
+    "mtime_ns": 1787030538946025900,
+    "indexed_at_ns": 1787045501291452100,
+    "word_count": 579,
+    "hashes": {
+      "docs/components.md": "c97a0a92967d435a6d4d9f7fd6ff71e02c85e345f2d6f2cb72924723439b4037"
+    }
+  },
+  "docs/CONTENT.md": {
+    "size": 5882,
+    "mtime_ns": 1787030538958021200,
+    "indexed_at_ns": 1787045501293562000,
+    "word_count": 894,
+    "hashes": {
+      "docs/content.md": "4319fad9cd14073f6a3b5e9c24a681a05f0d550e6a81f2bd455776d5a61f79b1"
+    }
+  },
+  "docs/DESIGN.md": {
+    "size": 7146,
+    "mtime_ns": 1787030538936037400,
+    "indexed_at_ns": 1787045501295508100,
+    "word_count": 1057,
+    "hashes": {
+      "docs/design.md": "ef05410f0692cba913e036679ef30f6e8e87e897281673a316e976f34ac81eb9"
+    }
+  },
+  "docs/README.md": {
+    "size": 1832,
+    "mtime_ns": 1787031510601797900,
+    "indexed_at_ns": 1787045501297322400,
+    "word_count": 235,
+    "hashes": {
+      "docs/readme.md": "3c1c3c4a0edf59d4b783620fcce660b186ba8840d33d21c1b9aa9efa99858d05"
+    }
+  },
+  "docs/VISION.md": {
+    "size": 4856,
+    "mtime_ns": 1787030538971201700,
+    "indexed_at_ns": 1787045501298986400,
+    "word_count": 744,
+    "hashes": {
+      "docs/vision.md": "bcf4abced5230c5259ea0d7792a77faa85641b325bc7411cdae9fd01dfd0e975"
+    }
+  },
+  "package.json": {
+    "size": 708,
+    "mtime_ns": 1787032348057778900,
+    "indexed_at_ns": 1787045449525800700,
+    "word_count": 59,
+    "hashes": {
+      "package.json": "e0b167766f62b374e6b2d50a1804f6423f605c17d3b85b63e4fe4360b76e7c36"
+    }
+  },
+  "public/favicon.svg": {
+    "size": 231,
+    "mtime_ns": 1787030948896325400,
+    "indexed_at_ns": 1787045501304349000,
+    "word_count": 21,
+    "hashes": {
+      "public/favicon.svg": "d7560f22b01877a00671bdaf89d8be11448fafd65ab1e4817eecc5ba81c75f89"
+    }
+  },
+  "src/components/about/AboutIntro.astro": {
+    "size": 1636,
+    "mtime_ns": 1787034679449265400,
+    "indexed_at_ns": 1787045449527160300,
+    "word_count": 172,
+    "hashes": {
+      "src/components/about/aboutintro.astro": "8d4a41a2b2dd725909188ac0a10812507841c8c5d0c88d7fa183b43c5fd9c420"
+    }
+  },
+  "src/components/common/SiteFooter.astro": {
+    "size": 1243,
+    "mtime_ns": 1787033242252906000,
+    "indexed_at_ns": 1787045449528457600,
+    "word_count": 92,
+    "hashes": {
+      "src/components/common/sitefooter.astro": "30225262aff03ffb6c58d9c1b3e706c6934e60fd1f4d3b57830708e165e44c33"
+    }
+  },
+  "src/components/common/SiteHeader.astro": {
+    "size": 1442,
+    "mtime_ns": 1787040587497916300,
+    "indexed_at_ns": 1787045449530244200,
+    "word_count": 123,
+    "hashes": {
+      "src/components/common/siteheader.astro": "1ed8577239dea1221be7d0a8b7a1b27b05e5daf9587dd12b849546cfbbee9be1"
+    }
+  },
+  "src/components/contact/ContactCTA.astro": {
+    "size": 927,
+    "mtime_ns": 1787040493127283700,
+    "indexed_at_ns": 1787045449531901600,
+    "word_count": 71,
+    "hashes": {
+      "src/components/contact/contactcta.astro": "1e95542877e131af2bb4442e616a69700e5a7868f3b656d0b6f0c89802a25718"
+    }
+  },
+  "src/components/experience/Capabilities.astro": {
+    "size": 1067,
+    "mtime_ns": 1787035343034865000,
+    "indexed_at_ns": 1787045449533528700,
+    "word_count": 103,
+    "hashes": {
+      "src/components/experience/capabilities.astro": "815ac270c8f6045a65ee024d0ced5e1972f90e3ee06a8f52a03d492a0d89fe6c"
+    }
+  },
+  "src/components/hero/Hero.astro": {
+    "size": 1542,
+    "mtime_ns": 1787035248205952700,
+    "indexed_at_ns": 1787045449535029300,
+    "word_count": 133,
+    "hashes": {
+      "src/components/hero/hero.astro": "72e8b612645dff5e1ea0d8b7c514d24c8f21a6435b9e821b5dc5c9d34901e752"
+    }
+  },
+  "src/components/projects/ProjectCover.astro": {
+    "size": 1991,
+    "mtime_ns": 1787041860122955100,
+    "indexed_at_ns": 1787045449536355500,
+    "word_count": 224,
+    "hashes": {
+      "src/components/projects/projectcover.astro": "2c37ae411c4a1146fd4cb0008d86531cd8190bde1cea0b7ca72ef28075b2c326"
+    }
+  },
+  "src/components/projects/ProjectIndex.astro": {
+    "size": 763,
+    "mtime_ns": 1787033873559487200,
+    "indexed_at_ns": 1787045449537533000,
+    "word_count": 72,
+    "hashes": {
+      "src/components/projects/projectindex.astro": "1c3b99d0d7bea304892c0e9073df50d6d7d752bb15f3f19939d47823c6438eb3"
+    }
+  },
+  "src/components/projects/ProjectShowcase.astro": {
+    "size": 1414,
+    "mtime_ns": 1787042016055457600,
+    "indexed_at_ns": 1787045449538722700,
+    "word_count": 129,
+    "hashes": {
+      "src/components/projects/projectshowcase.astro": "df8ddbbd78667ff3502b7d71f92f26356be5d90fbddc6ed0b2dc05acd93b264a"
+    }
+  },
+  "src/components/react/MobileMenu.tsx": {
+    "size": 1920,
+    "mtime_ns": 1787033313446626800,
+    "indexed_at_ns": 1787045366803023800,
+    "word_count": 169
+  },
+  "src/components/section/SectionHeading.astro": {
+    "size": 372,
+    "mtime_ns": 1787033209232318000,
+    "indexed_at_ns": 1787045449539926200,
+    "word_count": 40,
+    "hashes": {
+      "src/components/section/sectionheading.astro": "96936c4991d463d1ea1ba9f26f7ec24f7b1517a9eadc0d1d0a7a7547bf538ca4"
+    }
+  },
+  "src/components/section/SectionIntro.astro": {
+    "size": 524,
+    "mtime_ns": 1787035313457702000,
+    "indexed_at_ns": 1787045449541112200,
+    "word_count": 48,
+    "hashes": {
+      "src/components/section/sectionintro.astro": "a75488893bca5356a52f3c548cb227b42963b3b394629ca2481412a523c57fcf"
+    }
+  },
+  "src/content.config.ts": {
+    "size": 522,
+    "mtime_ns": 1787033623246959500,
+    "indexed_at_ns": 1787045366810376500,
+    "word_count": 46
+  },
+  "src/content/projects/project-one.md": {
+    "size": 330,
+    "mtime_ns": 1787033632140649000,
+    "indexed_at_ns": 1787045501300685800,
+    "word_count": 45,
+    "hashes": {
+      "src/content/projects/project-one.md": "28172099e07922eea7f6c45763a57f0eb5f9c320159dacee902a06ff2cf40949"
+    }
+  },
+  "src/content/projects/project-two.md": {
+    "size": 280,
+    "mtime_ns": 1787033636541214100,
+    "indexed_at_ns": 1787045501302469500,
+    "word_count": 39,
+    "hashes": {
+      "src/content/projects/project-two.md": "a255d9394177f9ca3d69c75ad1cfc12ee58daabc6487f8f6eac77acd6b6d6e63"
+    }
+  },
+  "src/env.d.ts": {
+    "size": 39,
+    "mtime_ns": 1787031074074622500,
+    "indexed_at_ns": 1787045366816347300,
+    "word_count": 4
+  },
+  "src/layouts/BaseLayout.astro": {
+    "size": 1008,
+    "mtime_ns": 1787031584114642500,
+    "indexed_at_ns": 1787045449542296300,
+    "word_count": 88,
+    "hashes": {
+      "src/layouts/baselayout.astro": "76ce132dd3d642de148a0fda6fd8a1a913d536b4cf8c252b666cf390d9c7a3b5"
+    }
+  },
+  "src/layouts/ProjectLayout.astro": {
+    "size": 3521,
+    "mtime_ns": 1787042066606425200,
+    "indexed_at_ns": 1787045449543508800,
+    "word_count": 275,
+    "hashes": {
+      "src/layouts/projectlayout.astro": "bb0cebede9dec795d3cbbb4d2507ed97e7a0dae48c3644d1778126852662d513"
+    }
+  },
+  "src/lib/animations/hero.ts": {
+    "size": 576,
+    "mtime_ns": 1787031120800742500,
+    "indexed_at_ns": 1787045366821391200,
+    "word_count": 77
+  },
+  "src/lib/animations/index.ts": {
+    "size": 989,
+    "mtime_ns": 1787041271015378600,
+    "indexed_at_ns": 1787045366823742400,
+    "word_count": 115
+  },
+  "src/lib/animations/parallax.ts": {
+    "size": 769,
+    "mtime_ns": 1787031062998729100,
+    "indexed_at_ns": 1787045366825537000,
+    "word_count": 83
+  },
+  "src/lib/animations/reduced-motion.ts": {
+    "size": 620,
+    "mtime_ns": 1787041472340994200,
+    "indexed_at_ns": 1787045366827991700,
+    "word_count": 72
+  },
+  "src/lib/animations/reveal.ts": {
+    "size": 1549,
+    "mtime_ns": 1787034609799704400,
+    "indexed_at_ns": 1787045366829758300,
+    "word_count": 174
+  },
+  "src/lib/animations/text-reveal.ts": {
+    "size": 2626,
+    "mtime_ns": 1787035234455683600,
+    "indexed_at_ns": 1787045366831451300,
+    "word_count": 288
+  },
+  "src/lib/constants/site.ts": {
+    "size": 589,
+    "mtime_ns": 1787031073129589400,
+    "indexed_at_ns": 1787045366833170900,
+    "word_count": 72
+  },
+  "src/pages/404.astro": {
+    "size": 805,
+    "mtime_ns": 1787031303676158800,
+    "indexed_at_ns": 1787045449544794400,
+    "word_count": 83,
+    "hashes": {
+      "src/pages/404.astro": "4e2a37ccfc03d2545be1a256b9f4af3ec211c359dafc08f1def2d3ad8fa48495"
+    }
+  },
+  "src/pages/index.astro": {
+    "size": 1737,
+    "mtime_ns": 1787041681592510900,
+    "indexed_at_ns": 1787045449546035400,
+    "word_count": 135,
+    "hashes": {
+      "src/pages/index.astro": "4a9fa1ae6e227ea12e0ce06629cb5c082cfebc271643d3a97316b0c7d410467d"
+    }
+  },
+  "src/pages/work/[slug].astro": {
+    "size": 696,
+    "mtime_ns": 1787042092798793300,
+    "indexed_at_ns": 1787045449547939400,
+    "word_count": 81,
+    "hashes": {
+      "src/pages/work/[slug].astro": "8c51b1276009c985bb7c14530b67bd320a87ffc8d93b507dfbda6252c2568c81"
+    }
+  },
+  "tsconfig.json": {
+    "size": 221,
+    "mtime_ns": 1787030946900893200,
+    "indexed_at_ns": 1787045449549838500,
+    "word_count": 20,
+    "hashes": {
+      "tsconfig.json": "46479d5ff444d3e86217d9845752d779b48c411e24ef5378b2ab2c7e8d4f5c19"
+    }
+  },
+  ".qwen/tmp/s-ab967bbd-b387-4b44-8266-0a0dd45ca551/qwen-skill-args-graphify.txt": {
+    "size": 1,
+    "mtime_ns": 1787065483479710600,
+    "indexed_at_ns": 1787065741306432300,
+    "word_count": 1,
+    "hashes": {
+      ".qwen/tmp/s-ab967bbd-b387-4b44-8266-0a0dd45ca551/qwen-skill-args-graphify.txt": "53eff70b512c9ca52eb1a1233eabd89098ea700e21a85675cd928692096f4392"
+    }
+  }
+}
