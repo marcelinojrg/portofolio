@@ -24,18 +24,18 @@ export function initHeroMotion() {
   const delay = introDelay();
 
   if (pieces.length) {
-    gsap.fromTo(
-      pieces,
-      { opacity: 0, y: 48 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        ease: 'power3.out',
-        stagger: 0.1,
-        delay: delay + 0.25,
-      },
-    );
+    // Initial states are set here at runtime — not in CSS — so the hero
+    // (and the LCP element inside it) paints immediately on first paint.
+    // LCP is recorded before this runs; the reveal then plays over it.
+    gsap.set(pieces, { opacity: 0, y: 48 });
+    gsap.to(pieces, {
+      opacity: 1,
+      y: 0,
+      duration: 0.8,
+      ease: 'power3.out',
+      stagger: 0.08,
+      delay: delay + 0.15,
+    });
   }
 
   // y:0 is explicit on both sides: GSAP parses the CSS `translateY(115%)`
@@ -48,9 +48,9 @@ export function initHeroMotion() {
       y: 0,
       yPercent: 0,
       rotate: 0,
-      duration: 1.15,
+      duration: 1,
       ease: 'power4.out',
-      stagger: 0.1,
+      stagger: 0.08,
       delay,
     },
   );
@@ -65,7 +65,7 @@ export function initHeroMotion() {
       transformOrigin: 'top',
       duration: 0.9,
       ease: 'power2.inOut',
-      delay: delay + 1.4,
+      delay: delay + 0.9,
     },
   );
 

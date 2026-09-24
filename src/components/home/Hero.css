@@ -63,6 +63,7 @@
 .hero__cta {
   display: inline-flex;
   width: fit-content;
+  min-block-size: var(--size-touch-target);
   align-items: center;
   gap: 0.5rem;
   font-size: 0.875rem;
@@ -103,7 +104,8 @@
 
 .hero-name {
   display: block;
-  font-size: clamp(2.5rem, 6.5vw, 4.75rem);
+  min-height: 2.24em;
+  font-size: var(--text-hero);
   line-height: 1.12;
   letter-spacing: -0.03em;
 }
@@ -117,15 +119,7 @@
 }
 
 .hero-rotate {
-  white-space: pre;
-}
-
-.hero-rotate .ch {
-  display: inline-block;
-  transition:
-    opacity 220ms ease,
-    transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: transform, opacity;
+  white-space: pre-wrap;
 }
 
 .hero-note {
@@ -135,16 +129,6 @@
   font-size: 1.0625rem;
   line-height: 1.6;
   color: var(--color-text-muted);
-}
-
-.hero-emoji {
-  display: inline-block;
-  font-family: var(--font-body);
-  opacity: 1;
-  transition:
-    opacity 420ms ease,
-    transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: transform, opacity;
 }
 
 /* Masked word reveal — GSAP animates the words, CSS owns the masks. */
@@ -192,6 +176,11 @@
 @media (min-width: 48rem) {
   .hero {
     padding-bottom: 8rem;
+  }
+
+  .hero-name {
+    min-height: 1.12em;
+    font-size: clamp(2.5rem, 6.5vw, 4.75rem);
   }
 
   .hero__inner {

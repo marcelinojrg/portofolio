@@ -284,7 +284,7 @@ Animation must not be required to understand whether an element is interactive.
 
 Responsive design must preserve hierarchy, not only dimensions.
 
-Desktop-only effects such as large cursor effects or complex parallax may be simplified on mobile.
+Desktop-only pointer effects or complex parallax may be simplified on mobile, but core content and actions must remain available.
 
 Long hero statements may reflow into fewer, shorter lines.
 

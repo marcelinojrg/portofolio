@@ -9,7 +9,6 @@ import { initMagnetic } from './magnetic';
 import { initMarquees } from './marquee';
 import { initWordScrub } from './word-scrub';
 import { initShowcase } from './showcase';
-import { initCursor } from './cursor';
 import { initSmoothScroll, destroySmoothScroll } from './smooth-scroll';
 import { initUI, teardownUI } from './ui';
 import { runTeardown } from './teardown';
@@ -26,7 +25,6 @@ function runScenes() {
   initMarquees();
   initWordScrub();
   initShowcase();
-  initCursor();
 }
 
 /**

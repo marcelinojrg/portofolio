@@ -33,6 +33,7 @@
   --text-contact: clamp(2.75rem, 7vw, 6rem);
 
   --spacing-section: clamp(4.5rem, 9vw, 8rem);
+  --size-touch-target: 2.75rem;
 }
 
 /* ---------- Minimal reset ----------
@@ -122,7 +123,7 @@ html {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   /* Lenis drives smooth scrolling; CSS smooth would double-smooth. */
-  scroll-padding-top: 5rem;
+  scroll-padding-top: calc(5rem + env(safe-area-inset-top, 0px));
 }
 
 body {
@@ -227,8 +228,11 @@ h4 {
 .skip-link:focus {
   position: absolute;
   z-index: 50;
+  display: inline-flex;
   width: auto;
+  min-block-size: var(--size-touch-target);
   height: auto;
+  align-items: center;
   margin: 0;
   padding: 0.5rem 1rem;
   overflow: visible;
@@ -256,15 +260,15 @@ h4 {
 }
 
 /* ---------- Anti-flash initial states ----------
-   The inline head script adds `html.js` before first paint (skipped under
-   reduced motion). These states mirror GSAP's from-values exactly, so the
-   page never paints visible content that then blinks out. If the motion
-   bundle fails, the same script removes `js` on window load. */
+    The inline head script adds `html.js` before first paint (skipped under
+    reduced motion). These states mirror GSAP's from-values exactly, so
+    below-the-fold content never blinks when the motion bundle arrives.
+    Above-the-fold hero content is deliberately NOT pre-hidden here: hiding
+    the LCP element in CSS delays Largest Contentful Paint until the JS
+    bundle loads. hero.ts sets its initial states at runtime instead, so the
+    hero paints immediately and LCP is recorded on first paint.
+    If the motion bundle fails, the same script removes `js` on window load. */
 @media (prefers-reduced-motion: no-preference) {
-  html.js [data-hero] {
-    opacity: 0;
-    transform: translateY(48px);
-  }
   html.js [data-reveal] {
     opacity: 0;
     transform: translateY(40px);
@@ -276,6 +280,8 @@ h4 {
     clip-path: inset(0 0 100% 0);
     transform: scale(1.12);
   }
+  /* [data-hero-word] is masked by its overflow-hidden line wrapper, so the
+     off-position rest pose is invisible without needing opacity:0. */
   html.js [data-hero-word] {
     transform: translateY(115%) rotate(1.5deg);
   }

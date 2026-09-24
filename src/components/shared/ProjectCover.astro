@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
 import './ProjectCover.css';
 
 interface Props {
@@ -11,7 +12,7 @@ interface Props {
 }
 
 const { project, index, uid } = Astro.props;
-const { tint } = project.data;
+const { cover, tint } = project.data;
 
 const TINTS = {
   blue: { a: '#2b5cff', b: '#9badff' },
@@ -25,64 +26,78 @@ const gradId = `g-${uid ?? project.id}`;
 ---
 
 <div class="project-cover-frame" data-cover>
-  <svg
-    class="project-cover"
-    viewBox="0 0 800 500"
-    preserveAspectRatio="xMidYMid slice"
-    aria-hidden="true"
-  >
-    <defs>
-      <linearGradient id={gradId} x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0" stop-color={hue.a} stop-opacity="0.16"></stop>
-        <stop offset="1" stop-color={hue.b} stop-opacity="0.04"></stop>
-      </linearGradient>
-    </defs>
-    <rect width="800" height="500" fill={`url(#${gradId})`}></rect>
-    <g class="project-cover-drift" aria-hidden="true">
-      <line
-        x1="0"
-        y1="380"
-        x2="800"
-        y2="180"
-        stroke={hue.a}
-        stroke-opacity="0.18"
-        stroke-width="1"></line>
-      <line
-        x1="0"
-        y1="420"
-        x2="800"
-        y2="220"
-        stroke={hue.a}
-        stroke-opacity="0.12"
-        stroke-width="1"></line>
-      <line
-        x1="0"
-        y1="460"
-        x2="800"
-        y2="260"
-        stroke={hue.a}
-        stroke-opacity="0.06"
-        stroke-width="1"></line>
-    </g>
-    <g fill={hue.b} aria-hidden="true">
-      {
-        [0, 1, 2, 3, 4].map((r) =>
-          [0, 1, 2, 3, 4, 5].map((c) => (
-            <circle cx={80 + c * 48} cy={90 + r * 48} r="2" />
-          )),
-        )
-      }
-    </g>
-    <text
-      x="52"
-      y="440"
-      font-family="Space Grotesk, sans-serif"
-      font-size="120"
-      font-weight="500"
-      fill={hue.a}
-      fill-opacity="0.9"
-    >
-      {num}
-    </text>
-  </svg>
+  {
+    cover ? (
+      <Image
+        src={cover.src}
+        alt={cover.alt}
+        class="project-cover"
+        layout="full-width"
+        fit="cover"
+        position="center"
+      />
+    ) : (
+      <svg
+        class="project-cover"
+        viewBox="0 0 800 500"
+        preserveAspectRatio="xMidYMid slice"
+        aria-hidden="true"
+      >
+        <defs>
+          <linearGradient id={gradId} x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color={hue.a} stop-opacity="0.16" />
+            <stop offset="1" stop-color={hue.b} stop-opacity="0.04" />
+          </linearGradient>
+        </defs>
+        <rect width="800" height="500" fill={`url(#${gradId})`} />
+        <g class="project-cover-drift" aria-hidden="true">
+          <line
+            x1="0"
+            y1="380"
+            x2="800"
+            y2="180"
+            stroke={hue.a}
+            stroke-opacity="0.18"
+            stroke-width="1"
+          />
+          <line
+            x1="0"
+            y1="420"
+            x2="800"
+            y2="220"
+            stroke={hue.a}
+            stroke-opacity="0.12"
+            stroke-width="1"
+          />
+          <line
+            x1="0"
+            y1="460"
+            x2="800"
+            y2="260"
+            stroke={hue.a}
+            stroke-opacity="0.06"
+            stroke-width="1"
+          />
+        </g>
+        <g fill={hue.b} aria-hidden="true">
+          {[0, 1, 2, 3, 4].map((r) =>
+            [0, 1, 2, 3, 4, 5].map((c) => (
+              <circle cx={80 + c * 48} cy={90 + r * 48} r="2" />
+            )),
+          )}
+        </g>
+        <text
+          x="52"
+          y="440"
+          font-family="Space Grotesk, sans-serif"
+          font-size="120"
+          font-weight="500"
+          fill={hue.a}
+          fill-opacity="0.9"
+        >
+          {num}
+        </text>
+      </svg>
+    )
+  }
 </div>

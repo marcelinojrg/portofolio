@@ -1,6 +1,5 @@
-/* Kinetic project list — desktop rows are pure text; a fixed preview panel
-   follows the cursor and shows the cover (lib/animations/showcase.ts).
-   Mobile and reduced-motion visitors get the inline covers instead. */
+/* Kinetic project list — wide fine-pointer rows use a fixed preview panel.
+   Touch, narrow, and reduced-motion visitors get inline covers instead. */
 
 .project-index {
   max-width: 72rem;
@@ -82,12 +81,15 @@
 }
 
 .project-row__cover {
-  display: none;
+  display: block;
+  grid-column: 1 / -1;
+  margin-top: 0.5rem;
 }
 
 /* ---------- Cursor-following preview panel (desktop) ---------- */
 
 .showcase-preview {
+  display: none;
   position: fixed;
   top: 0;
   left: 0;
@@ -129,8 +131,18 @@
   .project-index__head {
     margin-bottom: 6rem;
   }
+}
 
+@media (min-width: 48rem) and (hover: hover) and (pointer: fine) {
   .project-index__hint {
+    display: block;
+  }
+
+  .project-row__cover {
+    display: none;
+  }
+
+  .showcase-preview {
     display: block;
   }
 }
@@ -139,14 +151,13 @@
   .project-row {
     grid-template-columns: 3rem 1fr;
   }
-
-  .project-row__cover {
-    display: block;
-    margin-top: 0.5rem;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .project-index__hint {
+    display: none;
+  }
+
   .project-row__cover {
     display: block;
   }

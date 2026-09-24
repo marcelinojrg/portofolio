@@ -1,15 +1,16 @@
 ---
 import '../styles/base.css';
-import '@fontsource/space-grotesk/400.css';
 import '@fontsource/space-grotesk/500.css';
 import '@fontsource/space-grotesk/700.css';
 import '@fontsource/inter/400.css';
 import '@fontsource/inter/500.css';
 import '@fontsource/inter/600.css';
-import '@fontsource/inter/500-italic.css';
 import { ClientRouter } from 'astro:transitions';
 import Intro from '../components/home/Intro.astro';
-import Cursor from '../components/shared/Cursor.astro';
+// Preload the two above-the-fold faces so the hero paints in the right
+// typeface on first paint (no late swap → less CLS, earlier LCP).
+import spaceGrotesk500 from '@fontsource/space-grotesk/files/space-grotesk-latin-500-normal.woff2?url';
+import inter400 from '@fontsource/inter/files/inter-latin-400-normal.woff2?url';
 
 interface Props {
   title: string;
@@ -24,12 +25,29 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 <html lang="en" transition:animate="fade">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link
+      rel="preload"
+      href={spaceGrotesk500}
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href={inter400}
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalURL} />
@@ -57,7 +75,6 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   </head>
   <body>
     <a href="#main" class="skip-link">Skip to content</a>
-    <Cursor />
     <Intro />
     <slot />
     <script>

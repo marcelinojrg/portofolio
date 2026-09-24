@@ -44,14 +44,6 @@ Requirements:
 - Accessible
 - Reduced-motion aware
 
-### `CustomCursor`
-
-Purpose:
-
-- Optional enhanced pointer interaction
-
-Only render enhanced behavior for supported pointer devices.
-
 ### `Intro`
 
 Purpose:
@@ -64,17 +56,6 @@ Behavior:
 - Skippable on click; removed from the DOM when done
 - Never renders without JS or under reduced motion (CSS-gated via `html.js`)
 - Scroll is locked while it plays; the BaseLayout inline script resets overflow if the motion bundle fails
-
-### `Cursor`
-
-Purpose:
-
-- Additive custom cursor: dot + trailing ring + context label ("View" on project rows)
-
-Behavior:
-
-- Fine-pointer, full-motion only; native cursor is hidden only while active (`html.cursor-on`)
-- Touches and reduced-motion visitors keep the normal cursor untouched
 
 ## 3. Hero Components
 
@@ -121,13 +102,13 @@ Optional supporting text for narrative sections.
 
 ### `ProjectIndex`
 
-Primary homepage project presentation: kinetic text rows with a cursor-following cover preview panel (desktop, fine-pointer). Rows carry `data-showcase-row`; the shared fixed panel `data-showcase-preview` holds one `ProjectCover` per project (`data-preview-item`).
+Primary homepage project presentation: kinetic text rows with a pointer-following cover preview panel (desktop, fine-pointer). Rows carry `data-showcase-row`; the shared fixed panel `data-showcase-preview` holds one `ProjectCover` per project (`data-preview-item`).
 
 Mobile and reduced-motion fall back to inline covers per row (`project-row__cover`).
 
 ### `ProjectCover`
 
-Procedural SVG cover (tint + serial number). Accepts a `uid` prop so the same cover can be rendered more than once on a page without duplicate SVG gradient ids.
+Responsive local artwork when provided, with a procedural SVG fallback (tint + serial number). Accepts a `uid` prop so the same SVG fallback can be rendered more than once on a page without duplicate gradient ids.
 
 ### `ProjectHero`
 

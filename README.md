@@ -9,9 +9,8 @@ This is the personal portfolio of **Marcelino Jorgi** — built as a cinematic, 
 ## ✨ Highlights
 
 - **Cinematic intro** — a kinetic 1–100 loader that reveals the name top-down before the experience begins.
-- **Living hero** — "Hello" greets with a cycling emoji, while "I'm Marcelino Jorgi" decodes character-by-character into _Developer → Designer → Student_.
+- **Living hero** — "Hello" leads into "I'm Marcelino Jorgi", which decodes character-by-character into _Developer → Designer → Student_.
 - **Scroll storytelling** — GSAP + ScrollTrigger drive reveals, parallax, marquees, and a word-scrub that "inks in" statements as you read.
-- **Custom cursor** — a dot + trailing ring that responds to interactive elements (desktop, full-motion only).
 - **Accessible by default** — respects `prefers-reduced-motion`, keyboard navigation, semantic HTML, and visible focus states.
 
 ## 🛠 Tech Stack
@@ -55,7 +54,7 @@ npm run preview
 ```
 src/
 ├── components/        # UI by section (hero, projects, contact, ...)
-│   ├── common/        # header, footer, cursor, intro
+│   ├── common/        # header, footer, intro
 │   ├── hero/          # hero scene
 │   ├── projects/      # project index + covers
 │   └── ...
@@ -73,7 +72,7 @@ Motion is split into **small, single-purpose modules** under `src/lib/animations
 
 ## ✍️ Content
 
-Projects live in the Astro content collection at `src/content/projects/`. Each entry uses the `projects` schema (`title`, `year`, `category`, `role`, `status`, `summary`, `technologies`, `tint`, `featured`, `order`).
+Projects live in the Astro content collection at `src/content/projects/`. Each entry uses the `projects` schema; `year`, `role`, `status`, `cover`, `liveUrl`, and `technologies` are optional when the facts are not confirmed.
 
 Edit `src/lib/constants/site.ts` for global identity — name, role, **email**, navigation, and social links.
 

@@ -14,8 +14,9 @@ interface Props {
 }
 
 const { project, index, prev, next } = Astro.props;
-const { title, category, summary, year, role, status, technologies } =
+const { title, category, summary, year, role, status, technologies, liveUrl } =
   project.data;
+const hasOnlyCategory = !year && role.length === 0 && !status;
 
 // Don't ship raw [REPLACE:] text as the meta description.
 const safeSummary = summary.startsWith('[REPLACE:')
@@ -37,25 +38,61 @@ const safeSummary = summary.startsWith('[REPLACE:')
         <p class="project__summary" data-hero>
           {summary}
         </p>
+        {
+          liveUrl && (
+            <p class="project__live" data-hero>
+              <a
+                href={liveUrl}
+                class="project__back-link project__live-link"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Visit live site
+                <span aria-hidden="true">&nearr;</span>
+                <span class="visually-hidden"> (opens in a new tab)</span>
+              </a>
+            </p>
+          )
+        }
       </header>
 
-      <dl class="project__meta" data-reveal>
-        <div>
-          <dt class="eyebrow">Year</dt>
-          <dd class="project-meta__value project-meta__value--num">{year}</dd>
-        </div>
+      <dl
+        class:list={[
+          'project__meta',
+          { 'project__meta--single': hasOnlyCategory },
+        ]}
+        data-reveal
+      >
+        {
+          year && (
+            <div>
+              <dt class="eyebrow">Year</dt>
+              <dd class="project-meta__value project-meta__value--num">
+                {year}
+              </dd>
+            </div>
+          )
+        }
         <div>
           <dt class="eyebrow">Category</dt>
           <dd class="project-meta__value">{category}</dd>
         </div>
-        <div>
-          <dt class="eyebrow">Role</dt>
-          <dd class="project-meta__value">{role.join(', ')}</dd>
-        </div>
-        <div>
-          <dt class="eyebrow">Status</dt>
-          <dd class="project-meta__value">{status}</dd>
-        </div>
+        {
+          role.length > 0 && (
+            <div>
+              <dt class="eyebrow">Role</dt>
+              <dd class="project-meta__value">{role.join(', ')}</dd>
+            </div>
+          )
+        }
+        {
+          status && (
+            <div>
+              <dt class="eyebrow">Status</dt>
+              <dd class="project-meta__value">{status}</dd>
+            </div>
+          )
+        }
       </dl>
 
       <div class="project__cover-box" data-reveal>

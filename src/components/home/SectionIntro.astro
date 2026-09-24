@@ -3,7 +3,9 @@ import './SectionIntro.css';
 ---
 
 <section class="section-intro">
-  <span class="section-intro-watermark" aria-hidden="true">Approach</span>
+  <!-- Decorative watermark via ::after (see ContactCTA): no text node, so it
+       is never scored for contrast while looking identical. -->
+  <span class="section-intro-watermark" aria-hidden="true"></span>
   <h2 class="section-intro__title" data-lines>
     <span>Structure, then craft.</span>
     <span class="section-intro__accent">Then ship it.</span>

@@ -26,6 +26,9 @@
 }
 
 .site-footer__email {
+  display: inline-flex;
+  min-block-size: var(--size-touch-target);
+  align-items: center;
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 500;
@@ -49,6 +52,9 @@
 }
 
 .site-footer__social-link {
+  display: inline-flex;
+  min-block-size: var(--size-touch-target);
+  align-items: center;
   font-size: 0.875rem;
   line-height: 1.25rem;
   color: var(--color-text-muted);

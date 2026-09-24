@@ -23,7 +23,7 @@ const hasIntroSkipped = () => Boolean(window.__introSkipped);
 
 /** Exposed for hero.ts: how long to wait before starting the hero choreography. */
 export function introDelay() {
-  return hasIntroSkipped() ? 0.2 : 1.85;
+  return hasIntroSkipped() ? 0.2 : 1.15;
 }
 
 export function initIntro() {
@@ -81,14 +81,14 @@ export function initIntro() {
   tl.fromTo(
     words,
     { y: 0, yPercent: -115 },
-    { y: 0, yPercent: 0, duration: 1.1, ease: 'power4.out', stagger: 0.14 },
+    { y: 0, yPercent: 0, duration: 0.8, ease: 'power4.out', stagger: 0.1 },
     0.1,
   )
     .to(
       counter,
       {
         value: 100,
-        duration: 1.8,
+        duration: 1.1,
         ease: 'power2.inOut',
         onUpdate: () => {
           countEl.textContent = String(Math.round(counter.value)).padStart(
@@ -99,10 +99,10 @@ export function initIntro() {
       },
       0.1,
     )
-    .to(bar, { scaleX: 1, duration: 1.8, ease: 'power2.inOut' }, 0.1)
+    .to(bar, { scaleX: 1, duration: 1.1, ease: 'power2.inOut' }, 0.1)
     .to(
       overlay,
-      { yPercent: -100, duration: 0.9, ease: 'power4.inOut' },
-      '+=0.15',
+      { yPercent: -100, duration: 0.6, ease: 'power4.inOut' },
+      '+=0.05',
     );
 }

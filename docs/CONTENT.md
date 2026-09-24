@@ -304,18 +304,14 @@ Recommended content collection fields:
 ```yaml
 ---
 title: 'Project title'
-slug: 'project-slug'
-year: 2026
 category: 'Web Development'
-role: ['Design', 'Development']
-status: 'Completed'
 summary: 'Short project summary.'
+liveUrl: 'https://example.com'
+cover:
+  src: '../../assets/projects/project-cover.png'
+  alt: 'Descriptive alternative text.'
 featured: true
 order: 1
-heroImage: '/images/projects/project-hero.webp'
-technologies:
-  - Astro
-  - TypeScript
 ---
 ```
 

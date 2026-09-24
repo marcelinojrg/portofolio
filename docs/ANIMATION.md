@@ -276,19 +276,16 @@ Possible patterns:
 
 Avoid large nav animations that delay navigation.
 
-## 18. Custom Cursor
+## 18. Pointer Interaction
 
-A custom cursor is optional.
+Use the browser's native pointer and preserve its visibility.
 
-Only implement one if it adds meaningful interaction.
+Pointer-driven enhancements may add preview or guidance, but they must:
 
-Requirements:
-
-- Never replace the browser cursor on touch devices.
-- Do not reduce pointer visibility.
-- Keep the motion subtle.
+- Have a static or touch-friendly equivalent.
 - Maintain normal click behavior.
-- Disable or simplify it under reduced motion.
+- Stay disabled under reduced motion.
+- Avoid replacing or obscuring the native pointer.
 
 ## 19. Magnetic Interactions
 
@@ -333,7 +330,7 @@ On mobile:
 
 - Reduce parallax distance.
 - Reduce number of simultaneous animations.
-- Disable complex cursor effects.
+- Avoid pointer-only interactions.
 - Simplify pinned sections.
 - Avoid horizontal interactions that confuse touch scrolling.
 - Use shorter animation durations where appropriate.
@@ -344,7 +341,7 @@ When `prefers-reduced-motion: reduce` is active:
 
 - Disable non-essential transforms.
 - Disable parallax.
-- Disable custom cursor motion.
+- Disable non-essential pointer motion.
 - Disable unnecessary looping effects.
 - Reduce transition duration.
 - Keep content visible immediately.
@@ -388,7 +385,6 @@ src/
         ├── reveal.ts
         ├── hero.ts
         ├── parallax.ts
-        ├── cursor.ts
         └── index.ts
 ```
 
@@ -418,10 +414,6 @@ The homepage includes a small set of deliberately rare, high-impact motion momen
 
 One-shot entry: name words mask up, a counter runs, the overlay wipes away. Plays only on the first load per session, is skippable on click, and is removed from the DOM when done. Scroll is locked while it plays; the BaseLayout inline script resets overflow if the motion bundle fails.
 
-### Custom cursor (`cursor.ts`)
-
-Dot + trailing ring with a context label. Desktop fine-pointer + full motion only; native cursor hidden only while active. Never on touch or under reduced motion.
-
 ### Marquee bands (`marquee.ts`)
 
 Seamless `xPercent` loops (two identical groups per track). Pause on hover and when the tab is hidden.
@@ -432,7 +424,7 @@ Scroll-linked word highlight for the About statement: words scrub from muted to 
 
 ### Showcase preview (`showcase.ts`)
 
-Project rows on the homepage drive a fixed cover preview panel that follows the cursor (lerped, transform-only). Mobile and reduced-motion fall back to inline covers.
+Project rows on the homepage drive a fixed cover preview panel that follows the pointer (lerped, transform-only). Mobile and reduced-motion fall back to inline covers.
 
 ### yPercent + CSS transform rule
 

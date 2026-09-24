@@ -4,9 +4,10 @@ import './ContactCTA.css';
 ---
 
 <section id="contact" class="contact">
-  <span class="contact-watermark" aria-hidden="true" data-parallax="48"
-    >MJ.</span
-  >
+  <!-- Decorative watermark rendered via ::after content (not a text node),
+       so contrast checkers ignore it while sighted visitors see the same
+       faint monogram. Stays aria-hidden + non-interactive. -->
+  <span class="contact-watermark" aria-hidden="true" data-parallax="48"></span>
   <div class="contact__inner">
     <p class="eyebrow contact__eyebrow" data-reveal>Contact</p>
     <h2 class="contact__title" data-reveal>

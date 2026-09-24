@@ -35,12 +35,14 @@ const projects = (await getCollection('projects'))
             </span>
             <span class="project-row__title">{p.data.title}</span>
             <span class="project-row__meta">
-              {p.data.year} - {p.data.category}
+              {p.data.year
+                ? `${p.data.year} - ${p.data.category}`
+                : p.data.category}
             </span>
+            <div class="project-row__cover" aria-hidden="true">
+              <ProjectCover project={p} index={i} uid={`row-${p.id}`} />
+            </div>
           </a>
-          <div class="project-row__cover" aria-hidden="true">
-            <ProjectCover project={p} index={i} uid={`row-${p.id}`} />
-          </div>
         </li>
       ))
     }

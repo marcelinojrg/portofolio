@@ -13,17 +13,19 @@ import '../shared/marquee.css';
 
     <h1 class="hero-title" data-hero-title>
       <span class="hero-title__line">
-        <span class="hero-title__word hero-greeting" data-hero-word
-          >Hello <span class="hero-emoji" data-hero-emoji aria-hidden="true"
-            >👋</span
-          ></span
-        >
+        <span class="hero-title__word hero-greeting" data-hero-word>Hello</span>
       </span>
       <span class="hero-title__line">
         <span class="hero-title__word hero-name" data-hero-word
-          >I'm <span class="hero-rotate hero-accent" data-hero-rotate
-          ></span></span
+          >I'm <span
+            class="hero-rotate hero-accent"
+            data-hero-rotate
+            aria-hidden="true">Marcelino Jorgi</span
+          ></span
         >
+        <!-- Static accessible name for the kinetic rotate effect: the
+             animated glyphs above are aria-hidden, screen readers get this. -->
+        <span class="visually-hidden">Marcelino Jorgi</span>
       </span>
     </h1>
 
@@ -82,15 +84,12 @@ import '../shared/marquee.css';
 </section>
 
 <script>
-  type TimedEl = HTMLElement & {
-    _timer?: ReturnType<typeof setInterval> | null;
-  };
-
   // Every interval/timeout the hero creates is tracked so it can be torn down
   // on view-transition swaps. Without this, timers keep mutating a detached
   // DOM tree after navigating away — and stack up on every visit home.
   const intervals = new Set<ReturnType<typeof setInterval>>();
   const timeouts = new Set<ReturnType<typeof setTimeout>>();
+  let removeMotionPreference: (() => void) | null = null;
 
   function trackInterval(fn: () => void, ms: number) {
     const id = setInterval(fn, ms);
@@ -119,128 +118,83 @@ import '../shared/marquee.css';
     timeouts.clear();
   }
 
-  document.addEventListener('astro:before-swap', clearTrackedTimers);
-
-  function initHeroEmoji() {
-    const el = document.querySelector<HTMLElement>('[data-hero-emoji]');
-    if (!el || el.dataset.emojiReady) return;
-    el.dataset.emojiReady = 'true';
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-    const emojis = ['👋', '✨', '🚀'];
-    let i = 0;
-    trackInterval(() => {
-      i = (i + 1) % emojis.length;
-      el.style.opacity = '0';
-      trackTimeout(() => {
-        el.textContent = emojis[i];
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(0.4em)';
-        requestAnimationFrame(() =>
-          requestAnimationFrame(() => {
-            el.style.opacity = '1';
-            el.style.transform = 'translateY(0)';
-          }),
-        );
-      }, 420);
-    }, 5000);
+  function clearHeroState() {
+    clearTrackedTimers();
+    removeMotionPreference?.();
+    removeMotionPreference = null;
   }
-  document.addEventListener('astro:page-load', initHeroEmoji);
+
+  document.addEventListener('astro:before-swap', clearHeroState);
 
   function initHeroRotate() {
     const el = document.querySelector<HTMLElement>('[data-hero-rotate]');
     if (!el || el.dataset.rotateReady) return;
     el.dataset.rotateReady = 'true';
+    removeMotionPreference?.();
 
     const words = ['Marcelino Jorgi', 'a Developer', 'a Designer', 'a Student'];
-    const maxLen = Math.max(...words.map((w) => w.length));
-    const reduce = window.matchMedia(
+    const motionPreference = window.matchMedia(
       '(prefers-reduced-motion: reduce)',
-    ).matches;
-    const GLYPHS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz#%&*/';
-    const toChars = (t: string) => [...t];
-
-    for (let i = 0; i < maxLen; i++) {
-      const s = document.createElement('span');
-      s.className = 'ch';
-      s.setAttribute('aria-hidden', 'true');
-      el.appendChild(s);
-    }
-    const spans = Array.from(el.children) as TimedEl[];
-
-    const clearAll = () =>
-      spans.forEach((s) => {
-        if (s._timer) {
-          untrackInterval(s._timer);
-          s._timer = null;
-        }
-      });
-
-    const setStatic = (span: HTMLElement, c: string) => {
-      if (c === '') {
-        span.textContent = '';
-        span.style.opacity = '0';
-      } else if (c === ' ') {
-        span.textContent = ' ';
-        span.style.opacity = '1';
-      } else {
-        span.textContent = c;
-        span.style.opacity = '1';
-      }
+    );
+    const onMotionPreferenceChange = () => {
+      clearTrackedTimers();
+      delete el.dataset.rotateReady;
+      initHeroRotate();
     };
-
+    motionPreference.addEventListener('change', onMotionPreferenceChange);
+    removeMotionPreference = () =>
+      motionPreference.removeEventListener('change', onMotionPreferenceChange);
+    const reduce = motionPreference.matches;
+    const GLYPHS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz#%&*/';
     let runId = 0;
     let pending: ReturnType<typeof setTimeout> | null = null;
+    let activeTimer: ReturnType<typeof setInterval> | null = null;
+
+    const clearActiveTimer = () => {
+      if (!activeTimer) return;
+      untrackInterval(activeTimer);
+      activeTimer = null;
+    };
 
     const paint = (text: string, animate: boolean, onDone?: () => void) => {
-      el.setAttribute('aria-label', text);
-      const chars = toChars(text);
-      if (!animate) {
-        clearAll();
-        spans.forEach((span, i) => setStatic(span, chars[i] ?? ''));
-        onDone?.();
-        return;
-      }
-      clearAll();
       if (pending) {
         clearTimeout(pending);
         timeouts.delete(pending);
         pending = null;
       }
+      clearActiveTimer();
       const myRun = ++runId;
-      let i = 0;
-      const step = () => {
-        if (myRun !== runId || i >= spans.length) {
+
+      if (!animate) {
+        el.textContent = text;
+        onDone?.();
+        return;
+      }
+
+      const chars = [...text];
+      const start = performance.now();
+      const duration = 260;
+      activeTimer = trackInterval(() => {
+        if (myRun !== runId) {
+          clearActiveTimer();
+          return;
+        }
+
+        const progress = Math.min(1, (performance.now() - start) / duration);
+        const visible = Math.floor(progress * chars.length);
+        el.textContent = chars
+          .map((char, index) => {
+            if (index < visible || char === ' ') return char;
+            return GLYPHS[(Math.random() * GLYPHS.length) | 0];
+          })
+          .join('');
+
+        if (progress >= 1) {
+          clearActiveTimer();
+          el.textContent = text;
           onDone?.();
-          return;
         }
-        const span = spans[i];
-        const c = chars[i] ?? '';
-        i++;
-        if (c === '' || c === ' ') {
-          setStatic(span, c);
-          step();
-          return;
-        }
-        span.style.opacity = '1';
-        const start = performance.now();
-        const duration = 260;
-        span._timer = trackInterval(() => {
-          if (myRun !== runId) {
-            if (span._timer) untrackInterval(span._timer);
-            return;
-          }
-          if (performance.now() - start >= duration) {
-            if (span._timer) untrackInterval(span._timer);
-            span._timer = null;
-            span.textContent = c;
-            step();
-          } else {
-            span.textContent = GLYPHS[(Math.random() * GLYPHS.length) | 0];
-          }
-        }, 35);
-      };
-      step();
+      }, 35);
     };
 
     if (reduce) {
