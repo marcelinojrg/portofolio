@@ -17,20 +17,12 @@ dist/
 # Local deployment and editor tooling
 .vercel/
 .vscode/
+.claude/
+.qwen/
 .mcp.json
 
-# Generated Graphify local state; keep the graph/report outputs trackable
-graphify-out/cache/
-graphify-out/.graphify_python
-graphify-out/.graphify_root
-graphify-out/.graphify_detect.json
-graphify-out/.graphify_extract.json
-graphify-out/.graphify_semantic.json
-graphify-out/.graphify_analysis.json
-graphify-out/.graphify_cached.json
-graphify-out/.graphify_uncached.txt
-graphify-out/.graphify_chunk_*.json
-graphify-out/.needs_update
+# Generated Graphify output
+graphify-out/
 
 # OS and temporary files
 .DS_Store
