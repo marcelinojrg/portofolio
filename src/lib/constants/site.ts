@@ -1,13 +1,15 @@
+const base = import.meta.env.BASE_URL;
+
 export const site = {
   name: 'Marcelino Jorgi',
   role: 'Creative Technologist',
   tagline: 'Building digital experiences where systems meet design.',
   email: 'marcelinojrg@gmail.com',
   nav: [
-    { label: 'Work', href: '/#work' },
-    { label: 'About', href: '/#about' },
-    { label: 'Experience', href: '/#experience' },
-    { label: 'Contact', href: '/#contact' },
+    { label: 'Work', href: `${base}#work` },
+    { label: 'About', href: `${base}#about` },
+    { label: 'Experience', href: `${base}#experience` },
+    { label: 'Contact', href: `${base}#contact` },
   ],
   socials: [
     { label: 'GitHub', href: '[REPLACE: https://github.com/yourhandle]' },

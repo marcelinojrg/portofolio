@@ -13,6 +13,6 @@ import './404.css';
     <p class="not-found__text">
       The link may be broken, or the page may have moved.
     </p>
-    <a href="/" class="not-found__link">Back home</a>
+    <a href={import.meta.env.BASE_URL} class="not-found__link">Back home</a>
   </main>
 </BaseLayout>

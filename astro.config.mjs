@@ -18,6 +18,7 @@ export default defineConfig({
       SITE_URL: envField.string({ context: 'server', access: 'secret' }),
     },
   },
+  base: env.BASE_PATH ? `${env.BASE_PATH.replace(/\/$/, '')}/` : '/',
   site: env.SITE_URL,
   vite: {
     build: {

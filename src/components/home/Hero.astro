@@ -45,7 +45,11 @@ import '../shared/marquee.css';
             <span class="hero-scroll-hint__line" data-hero-scroll-line></span>
           </span>
         </div>
-        <a href="/#work" class="hero__cta" data-magnetic>
+        <a
+          href={`${import.meta.env.BASE_URL}#work`}
+          class="hero__cta"
+          data-magnetic
+        >
           View selected work
           <span class="hero__cta-arrow">&rarr;</span>
         </a>

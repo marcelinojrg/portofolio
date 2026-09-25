@@ -26,7 +26,7 @@ const projects = (await getCollection('projects'))
       projects.map((p, i) => (
         <li data-reveal>
           <a
-            href={`/work/${p.id}`}
+            href={`${import.meta.env.BASE_URL}work/${p.id}`}
             class="project-row"
             data-showcase-row={p.id}
           >

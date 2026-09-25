@@ -30,7 +30,12 @@ const safeSummary = summary.startsWith('[REPLACE:')
     <article class="project">
       <header class="project__header">
         <p class="eyebrow project__back" data-hero>
-          <a href="/#work" class="project__back-link">&larr; Selected work</a>
+          <a
+            href={`${import.meta.env.BASE_URL}#work`}
+            class="project__back-link"
+          >
+            &larr; Selected work
+          </a>
         </p>
         <h1 class="project__title" data-hero>
           {title}
@@ -116,7 +121,11 @@ const safeSummary = summary.startsWith('[REPLACE:')
       <nav class="project__nav" aria-label="Project navigation">
         {
           prev ? (
-            <a href={`/work/${prev.id}`} class="project-nav__link" data-reveal>
+            <a
+              href={`${import.meta.env.BASE_URL}work/${prev.id}`}
+              class="project-nav__link"
+              data-reveal
+            >
               <span class="eyebrow">&larr; Previous</span>
               <span class="project-nav__title">{prev.data.title}</span>
             </a>
@@ -127,7 +136,7 @@ const safeSummary = summary.startsWith('[REPLACE:')
         {
           next && (
             <a
-              href={`/work/${next.id}`}
+              href={`${import.meta.env.BASE_URL}work/${next.id}`}
               class="project-nav__link project-nav__link--next"
               data-reveal
             >
